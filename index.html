@@ -221,7 +221,9 @@
         .project-text {
             padding: 40px;
             max-width: 500px;
-        }        .project-content:not(.reverse) .project-text {
+        }
+
+        .project-content:not(.reverse) .project-text {
             margin-left: auto;
             padding-right: 80px;
         }
@@ -232,17 +234,17 @@
 
         .project-content:not(.reverse) .project-image {
             width: 70%;
-            margin-left: -40px;
+            margin-left: -20%;
         }
 
         .project-content.reverse .project-image {
             width: 70%;
-            margin-right: -40px;
-            margin-left: auto;
+            margin-right: 0;
+            justify-self: end;
         }
 
         .project-content.reverse .project-image img {
-            transform: none;  /* Remove image mirroring */
+            transform: scaleX(-1);  /* Mirror the image horizontally */
         }
 
         .project-image img {
@@ -250,14 +252,6 @@
             height: auto;
             display: block;
             transition: transform 0.3s ease;
-            object-fit: cover;
-        }
-
-        /* Special case for StickClose image */
-        .project-image img[src*="StickClose"] {
-            width: 40%;
-            margin-left: auto;
-            object-fit: contain;
         }
 
         .project-image:hover img {
