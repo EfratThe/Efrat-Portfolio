@@ -1,0 +1,894 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Portfolio</title>
+    <style>
+        /* ===== GLOBAL STYLES ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Quicksand", sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #fff;
+        }
+
+        /* ===== HEADER WITH ANIMATED LOGO ===== */
+        @import url('https://fonts.googleapis.com/css2?family=Levenim+MT&display=swap');
+
+        .header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 2rem 0;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+        }
+        
+        .logo-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80px;
+        }
+        
+        .logo {
+            font-size: 4rem;
+            font-weight: normal;
+            letter-spacing: -0.02em;
+            color: black;
+            display: flex;
+            align-items: baseline;
+        }
+        
+        .letter {
+            display: inline-block;
+            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            position: relative;
+        }
+        
+        .letter.e1 { transition-delay: 0.1s; }
+        .letter.f { transition-delay: 0.2s; }
+        .letter.r { transition-delay: 0.3s; }
+        .letter.a { 
+            transition-delay: 0.4s;
+            transform: rotate(-5deg);
+        }
+        .letter.t { transition-delay: 0.5s; }
+        
+        /* Enhanced individual animations for each letter */
+        .letter.e1.hop {
+            animation: hopE1 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .letter.f.hop {
+            animation: hopF 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .letter.r.hop {
+            animation: hopR 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .letter.a.hop {
+            animation: hopA 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        .letter.t.hop {
+            animation: hopT 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+        }
+        
+        /* E - tiny up movement with gentle left tilt */
+        @keyframes hopE1 {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-8px) translateX(-2px) rotate(-4deg); }
+            50% { transform: translateY(-5px) translateX(-1px) rotate(-2deg); }
+            75% { transform: translateY(-2px) translateX(0) rotate(-1deg); }
+            100% { transform: translateY(0) translateX(0) rotate(0deg); }
+        }
+        
+        /* f - tiny down movement with gentle right tilt */
+        @keyframes hopF {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(4px) translateX(1px) rotate(3deg); }
+            50% { transform: translateY(6px) translateX(2px) rotate(4deg); }
+            75% { transform: translateY(3px) translateX(1px) rotate(2deg); }
+            100% { transform: translateY(0) translateX(0) rotate(0deg); }
+        }
+        
+        /* r - tiny up movement with gentle right tilt */
+        @keyframes hopR {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(-10px) translateX(2px) rotate(5deg); }
+            50% { transform: translateY(-6px) translateX(1px) rotate(3deg); }
+            75% { transform: translateY(-2px) translateX(0) rotate(1deg); }
+            100% { transform: translateY(0) translateX(0) rotate(0deg); }
+        }
+        
+        /* a - straightens gently first, then back to tilted */
+        @keyframes hopA {
+            0% { transform: translateY(0) translateX(0) rotate(-5deg); }
+            20% { transform: translateY(-3px) translateX(1px) rotate(0deg); }
+            40% { transform: translateY(-8px) translateX(-1px) rotate(3deg); }
+            60% { transform: translateY(-4px) translateX(0) rotate(-2deg); }
+            80% { transform: translateY(-1px) translateX(0) rotate(-3deg); }
+            100% { transform: translateY(0) translateX(0) rotate(-5deg); }
+        }
+        
+        /* t - tiny down movement with gentle left tilt */
+        @keyframes hopT {
+            0% { transform: translateY(0) translateX(0) rotate(0deg); }
+            25% { transform: translateY(5px) translateX(-1px) rotate(-6deg); }
+            50% { transform: translateY(8px) translateX(-2px) rotate(-4deg); }
+            75% { transform: translateY(2px) translateX(-1px) rotate(-2deg); }
+            100% { transform: translateY(0) translateX(0) rotate(0deg); }
+        }
+
+        /* ===== SCROLL-TRIGGERED ANIMATION SECTION ===== */
+        .animation-section {
+            position: relative;
+            height: 100vh;
+            background-color: #f8f9fa;
+            overflow: hidden;
+        }
+
+        .animation-content {
+            position: sticky;
+            top: 0;
+            width: 100%;
+            height: 100vh;
+            display: grid;
+            grid-template-columns: minmax(300px, 1fr) minmax(600px, 2fr);
+            gap: 40px;
+            align-items: center;
+            padding: 0 40px;
+            z-index: 1;
+        }
+
+        .animation-frames {
+            position: relative;
+            width: 100%;
+            height: 80vh;
+            background: #000;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        #animation-frame {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        #animation-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        /* Animation section styles removed */
+
+        .animation-text {
+            padding: 20px;
+        }
+
+        .animation-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .animation-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* ===== PROJECT SECTIONS WITH ALTERNATING LAYOUT ===== */
+        .project-section {
+            padding: 80px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-section:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+
+        .project-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .project-content.reverse {
+            direction: rtl;
+        }
+
+        .project-content.reverse > * {
+            direction: ltr;
+        }
+
+        .project-image {
+            width: 100%;
+            height: 300px;
+            background: #ddd;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #666;
+            overflow: hidden;
+        }
+
+        .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 15px;
+        }
+
+        .project-text h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .project-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* ===== FULL-WIDTH IMAGE SECTION ===== */
+        .fullwidth-section {
+            padding: 0;
+            margin: 80px 0;
+        }
+
+        .fullwidth-image {
+            width: 100%;
+            height: 70vh;
+            background: #ddd;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            color: #666;
+            overflow: hidden;
+        }
+
+        .fullwidth-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .fullwidth-text {
+            max-width: 800px;
+            margin: 40px auto 0;
+            padding: 0 20px;
+            text-align: center;
+        }
+
+        .fullwidth-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .fullwidth-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* ===== HOVER VIDEO SECTION ===== */
+        .video-hover-section {
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .video-container {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .video-container img,
+        .video-container video {
+            width: 100%;
+            height: auto;
+            display: block;
+            transition: opacity 0.3s ease;
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+        }
+
+        .video-container:hover video {
+            opacity: 1;
+        }
+
+        .video-container:hover img {
+            opacity: 0;
+        }
+
+        .video-text {
+            max-width: 600px;
+            margin: 40px auto 0;
+        }
+
+        .video-text h3 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: #2c3e50;
+        }
+
+        .video-text p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+        }
+
+        /* ===== RESPONSIVE DESIGN ===== */
+        @media (max-width: 768px) {
+            .animation-content,
+            .project-content {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+
+            .project-content.reverse {
+                direction: ltr;
+            }
+
+            .animation-text h2,
+            .project-text h3,
+            .fullwidth-text h3,
+            .video-text h3 {
+                font-size: 1.8rem;
+            }
+
+            .fullwidth-image {
+                height: 50vh;
+            }
+        }
+
+        /* ===== SMOOTH SCROLLING ===== */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* ===== SCROLL ANIMATION TRIGGER (You can expand this) ===== */
+        .scroll-animate {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .scroll-animate.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <!-- ===== HEADER WITH ANIMATED LOGO ===== -->
+    <header class="header">
+        <div class="logo-container">
+            <div class="logo">
+                <span class="letter e1">E</span>
+                <span class="letter f">f</span>
+                <span class="letter r">r</span>
+                <span class="letter a">a</span>
+                <span class="letter t">t</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== SCROLL-TRIGGERED ANIMATION SECTION ===== -->
+    <section class="animation-section">
+        <div class="container">
+            <div class="animation-content scroll-animate">
+                <div class="animation-text">
+                    <h2>Project Title</h2>
+                    <p>Replace this paragraph with your project description. Explain what this animation shows, the concept behind it, and any technical details you'd like to highlight. This text will appear to the left of your animation.</p>
+                </div>
+                <div class="animation-frames" id="animation-container">
+                    <div id="animation-frame" class="frame-display">
+                        <!-- Frame will be displayed here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== PROJECT SECTION 1 - IMAGE LEFT, TEXT RIGHT ===== -->
+    <section class="project-section">
+        <div class="container">
+            <div class="project-content scroll-animate">
+                <div class="project-image">
+                    <!-- REPLACE THIS: Add your project image -->
+                    <img src="your-image-1.jpg" alt="Project Image" style="display: none;">
+                    <p>Project Image 1</p>
+                </div>
+                <div class="project-text">
+                    <h3>Project Name</h3>
+                    <p>Replace this with your project description. Talk about the goals, process, and outcomes. This layout has the image on the left and text on the right.</p>
+                </div>
+            </div>
+
+            <!-- SECOND ROW - IMAGE RIGHT, TEXT LEFT -->
+            <div class="project-content reverse scroll-animate">
+                <div class="project-image">
+                    <!-- REPLACE THIS: Add your second project image -->
+                    <img src="your-image-2.jpg" alt="Project Image" style="display: none;">
+                    <p>Project Image 2</p>
+                </div>
+                <div class="project-text">
+                    <h3>Project Detail</h3>
+                    <p>Another paragraph for the same project. This layout has the image on the right and text on the left, creating a nice alternating pattern.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== FULL-WIDTH IMAGE SECTION ===== -->
+    <section class="fullwidth-section">
+        <div class="fullwidth-image scroll-animate">
+            <!-- REPLACE THIS: Add your full-width project image -->
+            <img src="your-fullwidth-image.jpg" alt="Full Width Project" style="display: none;">
+            <p>Full Width Project Image</p>
+        </div>
+        <div class="fullwidth-text scroll-animate">
+            <h3>Featured Project</h3>
+            <p>This is a full-width image section perfect for showcasing a major project. The image takes up most of the screen width, with this descriptive text centered below it. Great for hero shots or detailed work.</p>
+        </div>
+    </section>
+
+    <!-- ===== PROJECT SECTION 2 - ANOTHER ALTERNATING SET ===== -->
+    <section class="project-section">
+        <div class="container">
+            <div class="project-content scroll-animate">
+                <div class="project-image">
+                    <!-- REPLACE THIS: Add your project image -->
+                    <img src="your-image-3.jpg" alt="Project Image" style="display: none;">
+                    <p>Project Image 3</p>
+                </div>
+                <div class="project-text">
+                    <h3>Another Project</h3>
+                    <p>Description for your second major project. This follows the same alternating layout pattern as the first project section.</p>
+                </div>
+            </div>
+
+            <div class="project-content reverse scroll-animate">
+                <div class="project-image">
+                    <!-- REPLACE THIS: Add your project image -->
+                    <img src="your-image-4.jpg" alt="Project Image" style="display: none;">
+                    <p>Project Image 4</p>
+                </div>
+                <div class="project-text">
+                    <h3>Project Details</h3>
+                    <p>More details about this project. The reverse class makes this image appear on the right side.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ===== HOVER VIDEO SECTION ===== -->
+    <section class="video-hover-section">
+        <div class="container">
+            <div class="video-container scroll-animate">
+                <!-- REPLACE THESE: Add your still image and video -->
+                <img src="your-video-poster.jpg" alt="Video Poster" style="display: none;">
+                <video muted loop>
+                    <source src="your-video.mp4" type="video/mp4">
+                </video>
+                <!-- PLACEHOLDER - Remove this when you add real media -->
+                <div style="height: 400px; background: #ddd; display: flex; align-items: center; justify-content: center; color: #666;">
+                    Hover Video Project<br>
+                    <small>Still image → Video on hover</small>
+                </div>
+            </div>
+            <div class="video-text scroll-animate">
+                <h3>Interactive Project</h3>
+                <p>This project features a hover interaction - visitors see a still image that transforms into a video when they hover over it. Perfect for showing before/after states or animated demonstrations.</p>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        // ===== SCROLL ANIMATIONS =====
+        // This makes elements fade in as you scroll to them
+        function handleScrollAnimations() {
+            const animateElements = document.querySelectorAll('.scroll-animate');
+            
+            animateElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150; // Trigger point
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('active');
+                }
+            });
+        }
+
+        // Run on scroll
+        window.addEventListener('scroll', handleScrollAnimations);
+        // Run on page load
+        handleScrollAnimations();
+
+        // ===== VIDEO HOVER FUNCTIONALITY =====
+        document.querySelectorAll('.video-container').forEach(container => {
+            const video = container.querySelector('video');
+            
+            container.addEventListener('mouseenter', () => {
+                if (video) video.play();
+            });
+            
+            container.addEventListener('mouseleave', () => {
+                if (video) {
+                    video.pause();
+                    video.currentTime = 0;
+                }
+            });
+        });
+
+        // ===== SMOOTH SCROLLING FOR INTERNAL LINKS =====
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ===== LOGO ANIMATION ===== //
+        const letters = document.querySelectorAll('.letter');
+        let hasTriggeredOnLoad = false;
+        let isAtTop = true;
+        
+        function triggerAnimation() {
+            letters.forEach(letter => {
+                letter.classList.remove('hop');
+                // Force reflow
+                letter.offsetHeight;
+                letter.classList.add('hop');
+            });
+            
+            // Remove the hop class after animation completes
+            setTimeout(() => {
+                letters.forEach(letter => {
+                    letter.classList.remove('hop');
+                });
+            }, 1000);
+        }
+        
+        // Trigger animation on page load with slight delay
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                if (!hasTriggeredOnLoad) {
+                    triggerAnimation();
+                    hasTriggeredOnLoad = true;
+                }
+            }, 500);
+        });
+        
+        // Also trigger if DOM is already loaded
+        if (document.readyState === 'complete') {
+            setTimeout(() => {
+                if (!hasTriggeredOnLoad) {
+                    triggerAnimation();
+                    hasTriggeredOnLoad = true;
+                }
+            }, 500);
+        }
+        
+        // Trigger animation when scrolling back to top
+        let scrollTimeout;
+        window.addEventListener('scroll', () => {
+            clearTimeout(scrollTimeout);
+            scrollTimeout = setTimeout(() => {
+                const scrollPosition = window.scrollY;
+                const wasAtTop = isAtTop;
+                isAtTop = scrollPosition < 100;
+                
+                // If we just scrolled back to top (and weren't there before)
+                if (isAtTop && !wasAtTop) {
+                    triggerAnimation();
+                }
+            }, 50);
+        });
+        
+        // Touch support for mobile
+        let touchStartY = 0;
+        let lastScrollY = window.scrollY;
+        
+        window.addEventListener('touchstart', (e) => {
+            touchStartY = e.touches[0].clientY;
+            lastScrollY = window.scrollY;
+        });
+        
+        window.addEventListener('touchend', () => {
+            const currentScrollY = window.scrollY;
+            
+            // If we scrolled up to near the top
+            if (currentScrollY < 100 && lastScrollY > 200) {
+                triggerAnimation();
+            }
+        });
+
+        // Place this script at the end of the body
+        document.addEventListener('DOMContentLoaded', function() {
+            const frames = [
+                'XBOX.5.1.jpg',
+                'XBOX.5.2.jpg',
+                'XBOX.5.3.jpg',
+                'XBOX.5.4.jpg',
+                'XBOX.5.5.jpg',
+                'XBOX.5.6.jpg',
+                'XBOX.5.7.jpg',
+                'XBOX.5.8.jpg',
+                'XBOX.5.9.jpg',
+                'XBOX.5.10.jpg',
+                'XBOX.5.11.jpg',
+                'XBOX.5.12.jpg',
+                'XBOX.5.13.jpg',
+                'XBOX.5.14.jpg',
+                'XBOX.5.15.jpg',
+                'XBOX.5.16.jpg',
+                'XBOX.5.17.jpg',
+                'XBOX.5.18.jpg',
+                'XBOX.5.19.jpg',
+                'XBOX.5.20.jpg',
+                'XBOX.5.21.jpg',
+                'XBOX.5.22.jpg',
+                'XBOX.5.23.jpg',
+                'XBOX.5.24.jpg',
+                'XBOX.5.25.jpg',
+                'XBOX.5.26.jpg',
+                'XBOX.5.27.jpg',
+                'XBOX.5.28.jpg',
+                'XBOX.5.29.jpg',
+                'XBOX.5.30.jpg',
+                'XBOX.5.31.jpg',
+                'XBOX.5.32.jpg',
+                'XBOX.5.33.jpg',
+                'XBOX.5.34.jpg',
+                'XBOX.5.35.jpg',
+                'XBOX.5.36.jpg',
+                'XBOX.5.37.jpg',
+                'XBOX.5.38.jpg',
+                'XBOX.5.39.jpg',
+                'XBOX.5.40.jpg',
+                'XBOX.5.41.jpg',
+                'XBOX.5.42.jpg',
+                'XBOX.5.43.jpg',
+                'XBOX.5.44.jpg',
+                'XBOX.5.45.jpg',
+                'XBOX.5.46.jpg',
+                'XBOX.5.47.jpg',
+                'XBOX.5.48.jpg',
+                'XBOX.5.49.jpg',
+                'XBOX.5.50.jpg',
+                'XBOX.5.51.jpg',
+                'XBOX.5.52.jpg',
+                'XBOX.5.53.jpg',
+                'XBOX.5.54.jpg',
+                'XBOX.5.55.jpg',
+                'XBOX.5.56.jpg',
+                'XBOX.5.57.jpg',
+                'XBOX.5.58.jpg',
+                'XBOX.5.59.jpg',
+                'XBOX.5.60.jpg',
+                'XBOX.5.61.jpg',
+                'XBOX.5.62.jpg',
+                'XBOX.5.63.jpg',
+                'XBOX.5.64.jpg',
+                'XBOX.5.65.jpg',
+                'XBOX.5.66.jpg',
+                'XBOX.5.67.jpg',
+                'XBOX.5.68.jpg',
+                'XBOX.5.69.jpg',
+                'XBOX.5.70.jpg',
+                'XBOX.5.71.jpg',
+                'XBOX.5.72.jpg',
+                'XBOX.5.73.jpg',
+                'XBOX.5.74.jpg',
+                'XBOX.5.75.jpg',
+                'XBOX.5.76.jpg',
+                'XBOX.5.77.jpg',
+                'XBOX.5.78.jpg',
+                'XBOX.5.79.jpg',
+                'XBOX.5.80.jpg',
+                'XBOX.5.81.jpg',
+                'XBOX.5.82.jpg',
+                'XBOX.5.83.jpg',
+                'XBOX.5.84.jpg',
+                'XBOX.5.85.jpg',
+                'XBOX.5.86.jpg',
+                'XBOX.5.87.jpg',
+                'XBOX.5.88.jpg',
+                'XBOX.5.89.jpg',
+                'XBOX.5.90.jpg',
+                'XBOX.5.91.jpg'
+                // Add more frames as needed
+            ];
+
+            const animationSection = document.querySelector('.animation-section');
+            const animationFrame = document.getElementById('animation-frame');
+            let currentFrame = 0;
+            let isAnimating = false;
+            let isInAnimationSection = false;
+            let hasCompletedAnimation = false;
+            let scrollPosition = 0;
+            
+            // Preload images and display first frame
+            const preloadedImages = frames.map(src => {
+                const img = new Image();
+                img.src = src;
+                return img;
+            });
+
+            // Set initial frame
+            if (animationFrame) {
+                animationFrame.innerHTML = `<img src="${frames[0]}" alt="Animation frame 1" id="current-image">`;
+            }
+
+            function isElementInViewport(el) {
+                const rect = el.getBoundingClientRect();
+                const windowHeight = window.innerHeight;
+                // Only trigger when the section is properly in view
+                return (rect.top <= windowHeight * 0.3 && rect.bottom >= windowHeight * 0.3);
+            }
+
+            function updateFrame(direction) {
+                if (isAnimating) return;
+                isAnimating = true;
+
+                const frameSkip = 3; // Increase this number to make animation faster
+                let nextFrame = currentFrame;
+                if (direction === 'down' && currentFrame < frames.length - 1) {
+                    nextFrame = Math.min(frames.length - 1, currentFrame + frameSkip);
+                } else if (direction === 'up' && currentFrame > 0) {
+                    nextFrame = Math.max(0, currentFrame - frameSkip);
+                }
+
+                if (nextFrame !== currentFrame) {
+                    const img = document.getElementById('current-image');
+                    if (img) {
+                        img.src = frames[nextFrame];
+                        currentFrame = nextFrame;
+                    }
+                }
+
+                isAnimating = false;
+            }
+
+            function handleScroll(e) {
+                if (!isInAnimationSection || hasCompletedAnimation) return;
+                e.preventDefault();
+                const direction = e.deltaY > 0 ? 'down' : 'up';
+                updateFrame(direction);
+
+                // Check if animation is complete
+                if (currentFrame === frames.length - 1 && direction === 'down') {
+                    hasCompletedAnimation = true;
+                    document.body.style.overflow = '';
+                    // Restore scroll position and allow scrolling
+                    window.scrollTo(0, animationSection.offsetTop + animationSection.offsetHeight);
+                }
+            }
+
+            function checkSection() {
+                const inViewport = isElementInViewport(animationSection);
+                
+                if (inViewport && !hasCompletedAnimation) {
+                    if (!isInAnimationSection) {
+                        isInAnimationSection = true;
+                        scrollPosition = window.pageYOffset;
+                        document.body.style.overflow = 'hidden';
+                    }
+                } else {
+                    if (isInAnimationSection) {
+                        isInAnimationSection = false;
+                        document.body.style.overflow = '';
+                        // Reset animation if user scrolls back up
+                        if (window.pageYOffset < scrollPosition) {
+                            currentFrame = 0;
+                            hasCompletedAnimation = false;
+                            const img = document.getElementById('current-image');
+                            if (img) {
+                                img.src = frames[0];
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Add event listeners
+            window.addEventListener('wheel', handleScroll, { passive: false });
+            window.addEventListener('scroll', checkSection);
+            window.addEventListener('resize', checkSection);
+
+            // Initial check
+            checkSection();
+        });
+    </script>
+
+    <!-- 
+    ===== CUSTOMIZATION GUIDE =====
+    
+    TO CUSTOMIZE THIS TEMPLATE:
+    
+    1. HERO SECTION:
+       - Replace "Your Animated Logo Goes Here" with your actual animated logo component
+    
+    2. IMAGES:
+       - Find all instances of src="your-image-X.jpg" 
+       - Replace with your actual image paths
+       - Remove the style="display: none;" when you add real images
+       - Remove the placeholder text paragraphs
+    
+    3. TEXT CONTENT:
+       - Replace all placeholder text with your actual project descriptions
+       - Update project titles (h2, h3 elements)
+    
+    4. COLORS & FONTS:
+       - Main colors are defined in CSS variables at the top
+       - Change the hero gradient in .hero-section background
+       - Modify font-family in body CSS rule
+    
+    5. SIZING:
+       - Adjust .container max-width for overall page width
+       - Change image heights in .project-image and .fullwidth-image
+       - Modify padding values in section classes for spacing
+    
+    6. SCROLL ANIMATION:
+       - Your scroll-triggered animation goes in .animation-frames div
+       - You can add the 'scroll-animate' class to any element for fade-in effect
+    
+    7. VIDEO HOVER:
+       - Add your poster image path to the img src
+       - Add your video file path to the video source
+       - Remove the placeholder div when you have real media
+    
+    8. RESPONSIVE:
+       - The template is already mobile-responsive
+       - Adjust breakpoints in @media queries if needed
+    -->
+
+</body>
+</html>
