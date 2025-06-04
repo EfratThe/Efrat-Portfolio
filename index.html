@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <style>
         /* ===== GLOBAL STYLES ===== */
         * {
@@ -13,7 +16,7 @@
         }
 
         body {
-            font-family: "Quicksand", sans-serif;
+            font-family: 'Quicksand', sans-serif;
             line-height: 1.6;
             color: #333;
             background-color: #fff;
@@ -138,19 +141,23 @@
             100% { transform: translateY(0) translateX(0) rotate(0deg); }
         }
 
-        /* ===== SCROLL-TRIGGERED ANIMATION SECTION ===== */
-        .animation-section {
+        /* ===== SCROLL-TRIGGERED ANIMATION SECTION ===== */        .animation-section {
             position: relative;
             height: 100vh;
             background-color: #f8f9fa;
             overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .animation-content {
             position: sticky;
-            top: 0;
+            top: 50%;
+            transform: translateY(-50%);
             width: 100%;
-            height: 100vh;
+            max-width: 1200px;
+            height: 80vh;
             display: grid;
             grid-template-columns: minmax(300px, 1fr) minmax(600px, 2fr);
             gap: 40px;
@@ -241,11 +248,36 @@
             overflow: hidden;
         }
 
+        .project-content:not(.reverse) .project-image {
+            width: 70%;
+            margin-left: -40px;
+        }
+
+        .project-content.reverse .project-image {
+            width: 70%;
+            margin-right: -40px;
+            margin-left: auto;
+        }
+
+        .project-content.reverse .project-image img {
+            transform: none;  /* Remove image mirroring */
+        }
+
         .project-image img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        /* Special case for StickClose image */
+        .project-image img[src*="StickClose"] {
+            width: 40%;
+            margin-left: auto;
+        }
+
+        .project-image:hover img {
+            transform: scale(1.05);
         }
 
         .project-text h3 {
@@ -400,9 +432,6 @@
             transform: translateY(0);
         }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>    <!-- ===== HEADER WITH ANIMATED LOGO ===== -->
     <header class="header">
@@ -438,11 +467,8 @@
     <!-- ===== PROJECT SECTION 1 - IMAGE LEFT, TEXT RIGHT ===== -->
     <section class="project-section">
         <div class="container">
-            <div class="project-content scroll-animate">
-                <div class="project-image">
-                    <!-- REPLACE THIS: Add your project image -->
-                    <img src="your-image-1.jpg" alt="Project Image" style="display: none;">
-                    <p>Project Image 1</p>
+            <div class="project-content scroll-animate">                <div class="project-image">
+                    <img src="Projects-Pictures/Stick.png" alt="Stick Project">
                 </div>
                 <div class="project-text">
                     <h3>Project Name</h3>
@@ -451,11 +477,8 @@
             </div>
 
             <!-- SECOND ROW - IMAGE RIGHT, TEXT LEFT -->
-            <div class="project-content reverse scroll-animate">
-                <div class="project-image">
-                    <!-- REPLACE THIS: Add your second project image -->
-                    <img src="your-image-2.jpg" alt="Project Image" style="display: none;">
-                    <p>Project Image 2</p>
+            <div class="project-content reverse scroll-animate">                <div class="project-image">
+                    <img src="Projects-Pictures/StickClose.png" alt="StickClose Project">
                 </div>
                 <div class="project-text">
                     <h3>Project Detail</h3>
@@ -760,6 +783,28 @@
             // Initial check
             checkSection();
         });
+
+        // ===== FIX XBOX ANIMATION SCROLL BEHAVIOR =====
+        function handleXboxAnimation() {
+            const scrollPosition = window.scrollY;
+            const windowHeight = window.innerHeight;
+            const xboxSection = document.querySelector('.animation-section');
+            const xboxImage = document.querySelector('#animation-frame img');
+            
+            if (xboxSection && xboxImage) {
+                const sectionTop = xboxSection.offsetTop;
+                const sectionHeight = xboxSection.offsetHeight;
+                const scrollRange = sectionHeight - windowHeight;
+                
+                if (scrollPosition >= sectionTop && scrollPosition <= sectionTop + sectionHeight) {
+                    const scrollProgress = (scrollPosition - sectionTop) / scrollRange;
+                    const frameIndex = Math.min(Math.floor(scrollProgress * 91), 90);
+                    xboxImage.src = `XBOX-Frames/XBOX.5.${frameIndex + 1}.jpg`;
+                }
+            }
+        }
+
+        window.addEventListener('scroll', handleXboxAnimation);
     </script>
 
     <!-- 
