@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
+<head>    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
     <style>
         /* ===== GLOBAL STYLES ===== */
         * {
@@ -11,20 +13,22 @@
             padding: 0;
             box-sizing: border-box;
         }
-
+        
         body {
             font-family: "Quicksand", sans-serif;
+            font-optical-sizing: auto;
+            font-weight: 400;
+            font-style: normal;
             line-height: 1.6;
             color: #333;
             background-color: #fff;
         }
 
         /* ===== HEADER WITH ANIMATED LOGO ===== */
-        @import url('https://fonts.googleapis.com/css2?family=Levenim+MT&display=swap');        .header {
+        .header {
             position: relative;
             width: 100%;
             height: 95vh;
-            background: #fff;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -94,68 +98,57 @@
         
         /* E - tiny up movement with gentle left tilt */
         @keyframes hopE1 {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(-8px) translateX(-2px) rotate(-4deg); }
-            50% { transform: translateY(-5px) translateX(-1px) rotate(-2deg); }
-            75% { transform: translateY(-2px) translateX(0) rotate(-1deg); }
-            100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0); }
         }
         
         /* f - tiny down movement with gentle right tilt */
         @keyframes hopF {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(4px) translateX(1px) rotate(3deg); }
-            50% { transform: translateY(6px) translateX(2px) rotate(4deg); }
-            75% { transform: translateY(3px) translateX(1px) rotate(2deg); }
-            100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            0% { transform: translateY(0); }
+            50% { transform: translateY(4px); }
+            100% { transform: translateY(0); }
         }
         
         /* r - tiny up movement with gentle right tilt */
         @keyframes hopR {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(-10px) translateX(2px) rotate(5deg); }
-            50% { transform: translateY(-6px) translateX(1px) rotate(3deg); }
-            75% { transform: translateY(-2px) translateX(0) rotate(1deg); }
-            100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
         }
         
         /* a - straightens gently first, then back to tilted */
         @keyframes hopA {
-            0% { transform: translateY(0) translateX(0) rotate(-5deg); }
-            20% { transform: translateY(-3px) translateX(1px) rotate(0deg); }
-            40% { transform: translateY(-8px) translateX(-1px) rotate(3deg); }
-            60% { transform: translateY(-4px) translateX(0) rotate(-2deg); }
-            80% { transform: translateY(-1px) translateX(0) rotate(-3deg); }
-            100% { transform: translateY(0) translateX(0) rotate(-5deg); }
+            0% { transform: rotate(-5deg); }
+            50% { transform: translateY(-8px) rotate(-5deg); }
+            100% { transform: rotate(-5deg); }
         }
         
         /* t - tiny down movement with gentle left tilt */
         @keyframes hopT {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(5px) translateX(-1px) rotate(-6deg); }
-            50% { transform: translateY(8px) translateX(-2px) rotate(-4deg); }
-            75% { transform: translateY(2px) translateX(-1px) rotate(-2deg); }
-            100% { transform: translateY(0) translateX(0) rotate(0deg); }
+            0% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+            100% { transform: translateY(0); }
         }
 
-        /* ===== SCROLL-TRIGGERED ANIMATION SECTION ===== */
+        /* ===== ANIMATION SECTION ===== */
         .animation-section {
             position: relative;
-            height: 100vh;
-            background-color: #f8f9fa;
-            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
         }
-
+        
         .animation-content {
-            position: sticky;
-            top: 0;
+            position: relative;
             width: 100%;
-            height: 100vh;
+            min-height: 100vh;
             display: grid;
             grid-template-columns: minmax(300px, 1fr) minmax(600px, 2fr);
             gap: 40px;
             align-items: center;
-            padding: 0 40px;
+            padding: 0;
             z-index: 1;
         }
 
@@ -164,9 +157,8 @@
             width: 100%;
             height: 80vh;
             background: #000;
-            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            margin-right: -40px;
         }
 
         #animation-frame {
@@ -184,8 +176,6 @@
             display: block;
         }
 
-        /* Animation section styles removed */
-
         .animation-text {
             padding: 20px;
         }
@@ -193,29 +183,22 @@
         .animation-text h2 {
             font-size: 2.5rem;
             margin-bottom: 20px;
-            color: #2c3e50;
         }
 
-        .animation-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        /* ===== PROJECT SECTIONS WITH ALTERNATING LAYOUT ===== */
+        /* ===== PROJECT SECTIONS ===== */
         .project-section {
             padding: 80px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .project-section:nth-child(even) {
-            background-color: #f8f9fa;
+            position: relative;
+            z-index: 2;
+            overflow: hidden;
+            max-width: 1400px;
+            margin: 0 auto;
         }
 
         .project-content {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 0;
             align-items: center;
             margin-bottom: 60px;
         }
@@ -230,179 +213,132 @@
 
         .project-image {
             width: 100%;
-            height: 300px;
-            background: #ddd;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            color: #666;
+            height: auto;
+            position: relative;
             overflow: hidden;
+        }
+
+        .project-text {
+            padding: 40px;
+            max-width: 500px;
+        }
+
+        .project-content:not(.reverse) .project-text {
+            margin-left: auto;
+            padding-right: 80px;
+        }
+
+        .project-content.reverse .project-text {
+            padding-left: 80px;
+        }
+
+        .project-content:not(.reverse) .project-image {
+            width: 70%;
+            margin-left: -20%;
+        }
+
+        .project-content.reverse .project-image {
+            width: 70%;
+            margin-right: 0;
+            justify-self: end;
+        }
+
+        .project-content.reverse .project-image img {
+            transform: scaleX(-1);  /* Mirror the image horizontally */
         }
 
         .project-image img {
             width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 15px;
+            height: auto;
+            display: block;
+            transition: transform 0.3s ease;
         }
 
-        .project-text h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .project-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
+        .project-image:hover img {
+            transform: scale(1.05);
         }
 
         /* ===== FULL-WIDTH IMAGE SECTION ===== */
         .fullwidth-section {
             padding: 0;
             margin: 80px 0;
+            width: 100vw;
+            position: relative;
+            left: 50%;
+            right: 50%;
+            margin-left: -50vw;
+            margin-right: -50vw;
+            height: 100vh;
+            overflow: hidden;
         }
 
         .fullwidth-image {
             width: 100%;
-            height: 70vh;
-            background: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: #666;
+            height: 100vh;
             overflow: hidden;
         }
 
         .fullwidth-image img {
             width: 100%;
-            height: 100%;
+            height: 120vh;
             object-fit: cover;
+            object-position: center;
+            margin-top: -10vh;
         }
 
         .fullwidth-text {
             max-width: 800px;
-            margin: 40px auto 0;
+            margin: 40px auto;
             padding: 0 20px;
             text-align: center;
         }
 
-        .fullwidth-text h3 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .fullwidth-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        /* ===== HOVER VIDEO SECTION ===== */
+        /* ===== CUP ANIMATION SECTION ===== */
         .video-hover-section {
             padding: 80px 0;
             text-align: center;
         }
 
-        .video-container {
+        .cup-container {
             position: relative;
-            max-width: 800px;
+            max-width: 500px;
             margin: 0 auto;
-            border-radius: 20px;
             overflow: hidden;
             cursor: pointer;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
         }
 
-        .video-container img,
-        .video-container video {
+        .cup-container:hover {
+            transform: scale(1.02);
+        }
+
+        .cup-static {
             width: 100%;
             height: auto;
             display: block;
-            transition: opacity 0.3s ease;
         }
 
-        .video-container video {
+        .cup-animation {
             position: absolute;
             top: 0;
             left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        .cup-container:hover .cup-static {
             opacity: 0;
         }
 
-        .video-container:hover video {
+        .cup-container:hover .cup-animation {
             opacity: 1;
-        }
-
-        .video-container:hover img {
-            opacity: 0;
-        }
-
-        .video-text {
-            max-width: 600px;
-            margin: 40px auto 0;
-        }
-
-        .video-text h3 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .video-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        /* ===== RESPONSIVE DESIGN ===== */
-        @media (max-width: 768px) {
-            .animation-content,
-            .project-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .project-content.reverse {
-                direction: ltr;
-            }
-
-            .animation-text h2,
-            .project-text h3,
-            .fullwidth-text h3,
-            .video-text h3 {
-                font-size: 1.8rem;
-            }
-
-            .fullwidth-image {
-                height: 50vh;
-            }
-        }
-
-        /* ===== SMOOTH SCROLLING ===== */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* ===== SCROLL ANIMATION TRIGGER (You can expand this) ===== */
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .scroll-animate.active {
-            opacity: 1;
-            transform: translateY(0);
         }
     </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
 </head>
 <body>    <!-- ===== HEADER WITH ANIMATED LOGO ===== -->
     <header class="header">
@@ -440,9 +376,7 @@
         <div class="container">
             <div class="project-content scroll-animate">
                 <div class="project-image">
-                    <!-- REPLACE THIS: Add your project image -->
-                    <img src="your-image-1.jpg" alt="Project Image" style="display: none;">
-                    <p>Project Image 1</p>
+                    <img src="Projects-Pictures/Stick.png" alt="Project Image">
                 </div>
                 <div class="project-text">
                     <h3>Project Name</h3>
@@ -453,9 +387,7 @@
             <!-- SECOND ROW - IMAGE RIGHT, TEXT LEFT -->
             <div class="project-content reverse scroll-animate">
                 <div class="project-image">
-                    <!-- REPLACE THIS: Add your second project image -->
-                    <img src="your-image-2.jpg" alt="Project Image" style="display: none;">
-                    <p>Project Image 2</p>
+                    <img src="Projects-Pictures/StickClose.png" alt="Project Image">
                 </div>
                 <div class="project-text">
                     <h3>Project Detail</h3>
@@ -468,9 +400,7 @@
     <!-- ===== FULL-WIDTH IMAGE SECTION ===== -->
     <section class="fullwidth-section">
         <div class="fullwidth-image scroll-animate">
-            <!-- REPLACE THIS: Add your full-width project image -->
-            <img src="your-fullwidth-image.jpg" alt="Full Width Project" style="display: none;">
-            <p>Full Width Project Image</p>
+            <img src="Projects-Pictures/בייביק.JPG" alt="Full Width Project">
         </div>
         <div class="fullwidth-text scroll-animate">
             <h3>Featured Project</h3>
@@ -483,9 +413,7 @@
         <div class="container">
             <div class="project-content scroll-animate">
                 <div class="project-image">
-                    <!-- REPLACE THIS: Add your project image -->
-                    <img src="your-image-3.jpg" alt="Project Image" style="display: none;">
-                    <p>Project Image 3</p>
+                    <img src="Projects-Pictures/0016_00.jpg" alt="Project Image">
                 </div>
                 <div class="project-text">
                     <h3>Another Project</h3>
@@ -495,9 +423,7 @@
 
             <div class="project-content reverse scroll-animate">
                 <div class="project-image">
-                    <!-- REPLACE THIS: Add your project image -->
-                    <img src="your-image-4.jpg" alt="Project Image" style="display: none;">
-                    <p>Project Image 4</p>
+                    <img src="Projects-Pictures/0026_00.jpg" alt="Project Image">
                 </div>
                 <div class="project-text">
                     <h3>Project Details</h3>
@@ -507,24 +433,16 @@
         </div>
     </section>
 
-    <!-- ===== HOVER VIDEO SECTION ===== -->
+    <!-- ===== CUP ANIMATION SECTION ===== -->
     <section class="video-hover-section">
         <div class="container">
-            <div class="video-container scroll-animate">
-                <!-- REPLACE THESE: Add your still image and video -->
-                <img src="your-video-poster.jpg" alt="Video Poster" style="display: none;">
-                <video muted loop>
-                    <source src="your-video.mp4" type="video/mp4">
-                </video>
-                <!-- PLACEHOLDER - Remove this when you add real media -->
-                <div style="height: 400px; background: #ddd; display: flex; align-items: center; justify-content: center; color: #666;">
-                    Hover Video Project<br>
-                    <small>Still image → Video on hover</small>
-                </div>
+            <div class="cup-container scroll-animate">
+                <img src="Projects-Pictures/Cup.png" alt="Cup Initial State" class="cup-static">
+                <div class="cup-animation"></div>
             </div>
             <div class="video-text scroll-animate">
-                <h3>Interactive Project</h3>
-                <p>This project features a hover interaction - visitors see a still image that transforms into a video when they hover over it. Perfect for showing before/after states or animated demonstrations.</p>
+                <h3>Cup Animation</h3>
+                <p>Hover over the image to see the animation unfold. This demonstrates the fluid dynamics and design considerations in action.</p>
             </div>
         </div>
     </section>
@@ -586,29 +504,34 @@
         let isAtTop = true;
         
         function triggerAnimation() {
-            letters.forEach(letter => {
+            letters.forEach((letter, index) => {
                 letter.classList.remove('hop');
-                // Force reflow
-                letter.offsetHeight;
-                letter.classList.add('hop');
+                void letter.offsetHeight;
+                setTimeout(() => {
+                    letter.classList.add('hop');
+                }, index * 150); // Increased delay between letters
             });
             
-            // Remove the hop class after animation completes
+            // Increased timeout to account for longer animation duration
             setTimeout(() => {
                 letters.forEach(letter => {
                     letter.classList.remove('hop');
                 });
-            }, 1000);
+            }, 2500);
         }
         
-        // Trigger animation on page load with slight delay
+        // Trigger animation immediately when DOM is loaded
+        document.addEventListener('DOMContentLoaded', () => {
+            triggerAnimation();
+            hasTriggeredOnLoad = true;
+        });
+        
+        // Also trigger on window load for safety
         window.addEventListener('load', () => {
-            setTimeout(() => {
-                if (!hasTriggeredOnLoad) {
-                    triggerAnimation();
-                    hasTriggeredOnLoad = true;
-                }
-            }, 500);
+            if (!hasTriggeredOnLoad) {
+                triggerAnimation();
+                hasTriggeredOnLoad = true;
+            }
         });
         
         // Also trigger if DOM is already loaded
@@ -653,23 +576,23 @@
             if (currentScrollY < 100 && lastScrollY > 200) {
                 triggerAnimation();
             }
-        });
-
-        // Place this script at the end of the body
-        document.addEventListener('DOMContentLoaded', function() {
-            const frames = Array.from({length: 91}, (_, i) => 
-                `XBOX-Frames/XBOX.5.${i + 1}.jpg`
+        });        // Initialize XBOX animation
+        document.addEventListener('DOMContentLoaded', function() {            // Use every second frame for faster animation
+            const frames = Array.from({length: 45}, (_, i) => 
+                `XBOX-Frames/XBOX.5.${1 + i * 2}.jpg`
             );
 
             const animationSection = document.querySelector('.animation-section');
             const animationFrame = document.getElementById('animation-frame');
             let currentFrame = 0;
             let isAnimating = false;
-            let isInAnimationSection = false;
-            let hasCompletedAnimation = false;
-            let scrollPosition = 0;
+            let isScrollLocked = false;
+            let animationComplete = false;
+            let frameRate = 1;
+            let lastScrollTime = Date.now();
+            const scrollThrottle = 50; // ms between scroll updates
             
-            // Preload images and display first frame
+            // Preload all frames
             const preloadedImages = frames.map(src => {
                 const img = new Image();
                 img.src = src;
@@ -681,84 +604,188 @@
                 animationFrame.innerHTML = `<img src="${frames[0]}" alt="Animation frame 1" id="current-image">`;
             }
 
-            function isElementInViewport(el) {
-                const rect = el.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                // Only trigger when the section is properly in view
-                return (rect.top <= windowHeight * 0.3 && rect.bottom >= windowHeight * 0.3);
-            }
-
-            function updateFrame(direction) {
-                if (isAnimating) return;
+            function updateFrame(progress, force = false) {
+                if (isAnimating && !force) return;
+                
+                const now = Date.now();
+                if (!force && now - lastScrollTime < scrollThrottle) return;
+                lastScrollTime = now;
+                
                 isAnimating = true;
-
-                const frameSkip = 3; // Increase this number to make animation faster
-                let nextFrame = currentFrame;
-                if (direction === 'down' && currentFrame < frames.length - 1) {
-                    nextFrame = Math.min(frames.length - 1, currentFrame + frameSkip);
-                } else if (direction === 'up' && currentFrame > 0) {
-                    nextFrame = Math.max(0, currentFrame - frameSkip);
-                }
+                const targetFrame = Math.floor(progress * (frames.length - 1));
+                const nextFrame = Math.max(0, Math.min(frames.length - 1, targetFrame));
 
                 if (nextFrame !== currentFrame) {
                     const img = document.getElementById('current-image');
-                    if (img) {
+                    if (img && preloadedImages[nextFrame].complete) {
                         img.src = frames[nextFrame];
-                        currentFrame = nextFrame;
+                        currentFrame = nextFrame;                        // Remove animation complete check to allow continuous scrolling
                     }
                 }
-
+                
                 isAnimating = false;
             }
 
-            function handleScroll(e) {
-                if (!isInAnimationSection || hasCompletedAnimation) return;
-                e.preventDefault();
-                const direction = e.deltaY > 0 ? 'down' : 'up';
-                updateFrame(direction);
+            function isSectionCentered() {
+                const rect = animationSection.getBoundingClientRect();
+                const viewHeight = window.innerHeight;
+                const tolerance = viewHeight * 0.1;
+                const targetPosition = (viewHeight - rect.height) / 2;
+                return Math.abs(rect.top - targetPosition) < tolerance;
+            }
 
-                // Check if animation is complete
-                if (currentFrame === frames.length - 1 && direction === 'down') {
-                    hasCompletedAnimation = true;
+            function lockScroll() {
+                if (!isScrollLocked && !animationComplete) {
+                    isScrollLocked = true;
+                    document.body.style.overflow = 'hidden';
+                    // Center the section
+                    const rect = animationSection.getBoundingClientRect();
+                    const viewHeight = window.innerHeight;
+                    const offset = rect.top - (viewHeight - rect.height) / 2;
+                    window.scrollBy({
+                        top: offset,
+                        behavior: 'smooth'
+                    });
+                }
+            }
+
+            function unlockScroll() {
+                if (isScrollLocked) {
+                    isScrollLocked = false;
                     document.body.style.overflow = '';
-                    // Restore scroll position and allow scrolling
-                    window.scrollTo(0, animationSection.offsetTop + animationSection.offsetHeight);
                 }
             }
 
-            function checkSection() {
-                const inViewport = isElementInViewport(animationSection);
-                
-                if (inViewport && !hasCompletedAnimation) {
-                    if (!isInAnimationSection) {
-                        isInAnimationSection = true;
-                        scrollPosition = window.pageYOffset;
-                        document.body.style.overflow = 'hidden';
+            function handleScroll() {
+                requestAnimationFrame(() => {
+                    const rect = animationSection.getBoundingClientRect();
+                    const viewHeight = window.innerHeight;
+                    const totalScroll = viewHeight + rect.height;
+                    let progress;
+
+                    if (rect.top >= viewHeight) {
+                        progress = 0;
+                        unlockScroll();
+                    } else if (rect.bottom <= 0) {
+                        progress = 1;
+                        unlockScroll();
+                    } else {
+                        progress = (viewHeight - rect.top) / totalScroll;
+                          // Update progress based on scroll position without locking
+                        progress = Math.max(0, Math.min(1, progress));
                     }
-                } else {
-                    if (isInAnimationSection) {
-                        isInAnimationSection = false;
-                        document.body.style.overflow = '';
-                        // Reset animation if user scrolls back up
-                        if (window.pageYOffset < scrollPosition) {
-                            currentFrame = 0;
-                            hasCompletedAnimation = false;
-                            const img = document.getElementById('current-image');
-                            if (img) {
-                                img.src = frames[0];
-                            }
-                        }
-                    }
-                }
+
+                    updateFrame(progress);
+                });
             }
 
-            // Add event listeners
-            window.addEventListener('wheel', handleScroll, { passive: false });
-            window.addEventListener('scroll', checkSection);
-            window.addEventListener('resize', checkSection);
+            // Handle mouse wheel events for frame-by-frame control
+            let wheelTimeout;
+            window.addEventListener('wheel', (e) => {
+                if (isScrollLocked && !animationComplete) {
+                    e.preventDefault();
+                    
+                    if (wheelTimeout) return;
+                    wheelTimeout = setTimeout(() => {
+                        wheelTimeout = null;
+                    }, 50);
 
-            // Initial check
-            checkSection();
+                    const direction = e.deltaY > 0 ? 1 : -1;
+                    const targetFrame = currentFrame + (direction * frameRate);
+                    const progress = targetFrame / (frames.length - 1);
+                    
+                    updateFrame(Math.max(0, Math.min(1, progress)), true);
+                }
+            }, { passive: false });
+
+            // Handle touch events for mobile
+            let touchStartY = 0;
+            let lastTouchTime = 0;
+            
+            window.addEventListener('touchstart', (e) => {
+                if (isScrollLocked && !animationComplete) {
+                    e.preventDefault();
+                    touchStartY = e.touches[0].clientY;
+                    lastTouchTime = Date.now();
+                }
+            }, { passive: false });
+
+            window.addEventListener('touchmove', (e) => {
+                if (isScrollLocked && !animationComplete) {
+                    e.preventDefault();
+                    const now = Date.now();
+                    if (now - lastTouchTime < scrollThrottle) return;
+                    lastTouchTime = now;
+
+                    const touchDelta = touchStartY - e.touches[0].clientY;
+                    const direction = touchDelta > 0 ? 1 : -1;
+                    const targetFrame = currentFrame + (direction * frameRate);
+                    const progress = targetFrame / (frames.length - 1);
+                    
+                    updateFrame(Math.max(0, Math.min(1, progress)), true);
+                    touchStartY = e.touches[0].clientY;
+                }
+            }, { passive: false });
+
+            // Event listeners
+            window.addEventListener('scroll', handleScroll, { passive: true });
+            window.addEventListener('resize', handleScroll, { passive: true });
+
+            // Initial frame
+            handleScroll();
+        });
+
+        // Cup animation
+        document.addEventListener('DOMContentLoaded', function() {
+            const cupAnimation = document.querySelector('.cup-animation');
+            const frames = Array.from({length: 19}, (_, i) => 
+                `Projects-Pictures/Cup-Frames/_MG_${9655 + i}.JPG`
+            );
+            let currentFrame = 0;
+            let isPlaying = false;
+            let animationInterval;
+            let preloadedImages = [];
+
+            // Preload all frames
+            function preloadImages() {
+                preloadedImages = frames.map(src => {
+                    const img = new Image();
+                    img.src = src;
+                    return img;
+                });
+            }
+            preloadImages();
+
+            function updateFrame() {
+                if (currentFrame >= frames.length) {
+                    currentFrame = 0;
+                }
+                if (preloadedImages[currentFrame]?.complete) {
+                    cupAnimation.style.backgroundImage = `url(${frames[currentFrame]})`;
+                }
+                currentFrame++;
+            }
+
+            const cupContainer = document.querySelector('.cup-container');
+            
+            cupContainer.addEventListener('mouseenter', () => {
+                if (!isPlaying) {
+                    isPlaying = true;
+                    currentFrame = 0;
+                    // Start showing frames immediately
+                    updateFrame();
+                    animationInterval = setInterval(updateFrame, 50); // Show frames faster (20 FPS)
+                }
+            });
+
+            cupContainer.addEventListener('mouseleave', () => {
+                if (isPlaying) {
+                    isPlaying = false;
+                    clearInterval(animationInterval);
+                    currentFrame = 0;
+                    cupAnimation.style.backgroundImage = ''; // Clear the animation
+                }
+            });
         });
     </script>
 
