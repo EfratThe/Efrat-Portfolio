@@ -154,18 +154,17 @@ document.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth'
                 });
             }
-        });
-    });
+        });    });
 
-    // Initialize animations
-    initializeAnimations();
-    
-    // XBOX Scroll Animation
+    // XBOX Scroll Animation - Hijack Version
     let xboxFrames = [];
-    let currentFrame = 0;
-    let isXboxAnimationActive = false;
+    let currentFrame = 1; // Start at frame 1
+    let isScrollLocked = false;
     let xboxAnimationElement = null;
-      // Load XBOX frames
+    let scrollAccumulator = 0;
+    let xboxSection = null;
+    
+    // Load XBOX frames
     for (let i = 1; i <= 91; i++) {
         xboxFrames.push(`XBOX-Frames/XBOX.5.${i}.jpg`);
     }
@@ -179,62 +178,165 @@ document.addEventListener('DOMContentLoaded', () => {
     for (let i = 9655; i <= 9673; i++) {
         cupFrames.push(`Projects-Pictures/Cup-Frames/_MG_${i}.JPG`);
     }
-    
-    function initializeAnimations() {
+      function initializeAnimations() {
+        console.log('Initializing animations...');
         xboxAnimationElement = document.getElementById('xbox-animation');
+        xboxSection = document.getElementById('scroll-animation');
         cupAnimationElement = document.getElementById('cup-interactive');
         
+        console.log('XBOX elements found:', {
+            xboxAnimationElement: !!xboxAnimationElement,
+            xboxSection: !!xboxSection
+        });
+        
         // Setup XBOX scroll animation
-        if (xboxAnimationElement) {
+        if (xboxAnimationElement && xboxSection) {
+            console.log('Setting up XBOX scroll animation');
             setupXboxScrollAnimation();
         }
         
         // Setup Cup hover animation
         if (cupAnimationElement) {
+            console.log('Setting up Cup hover animation');
             setupCupHoverAnimation();
         }
     }
     
     function setupXboxScrollAnimation() {
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && entry.intersectionRatio >= 0.95) {
-                    // Element is fully visible, start animation and prevent scroll
-                    if (!isXboxAnimationActive) {
-                        startXboxAnimation();
-                    }
-                } else if (isXboxAnimationActive) {
-                    // Element is no longer fully visible, allow scroll
-                    stopXboxAnimation();
-                }
-            });
-        }, {
-            threshold: 0.95 // Trigger when 95% of element is visible
-        });
+        // Monitor scroll to detect when XBOX section is in center
+        window.addEventListener('scroll', checkXboxSectionPosition);
         
-        observer.observe(xboxAnimationElement.parentElement);
-    }
-    
-    function startXboxAnimation() {
-        isXboxAnimationActive = true;
-        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        // Add scroll hijacking listeners
+        window.addEventListener('wheel', handleScrollInput, { passive: false });
+        window.addEventListener('touchstart', handleTouchStart, { passive: false });
+        window.addEventListener('touchmove', handleTouchMove, { passive: false });
         
-        currentFrame = 0;
-        const animationInterval = setInterval(() => {
-            if (currentFrame < xboxFrames.length) {
-                xboxAnimationElement.src = xboxFrames[currentFrame];
-                currentFrame++;
-            } else {
-                // Animation complete, allow scrolling
-                clearInterval(animationInterval);
-                stopXboxAnimation();
+        // Escape key to release lock if user gets stuck
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && isScrollLocked) {
+                releaseScrollLock();
             }
-        }, 100); // Adjust timing as needed
+        });
+    }
+      function checkXboxSectionPosition() {
+        if (!xboxSection || isScrollLocked) return;
+        
+        const rect = xboxSection.getBoundingClientRect();
+        const windowHeight = window.innerHeight;
+        const sectionCenter = rect.top + rect.height / 2;
+        const screenCenter = windowHeight / 2;
+        
+        // Debug output (remove after testing)
+        const distance = Math.abs(sectionCenter - screenCenter);
+        if (distance < 200) { // Only log when getting close
+            console.log('XBOX section position:', {
+                sectionCenter,
+                screenCenter,
+                distance,
+                shouldActivate: distance < 100
+            });
+        }
+        
+        // Check if section center is near screen center (within 100px tolerance)
+        if (Math.abs(sectionCenter - screenCenter) < 100 && rect.top <= screenCenter && rect.bottom >= screenCenter) {
+            console.log('Activating scroll lock!');
+            activateScrollLock();
+        }
+    }
+      function activateScrollLock() {
+        if (isScrollLocked) return;
+        
+        console.log('🔒 SCROLL LOCK ACTIVATED');
+        isScrollLocked = true;
+        document.body.style.overflow = 'hidden';
+        scrollAccumulator = 0;
+        currentFrame = 1;
+        updateXboxFrame();
+        
+        // Visual indicator that scroll is locked
+        xboxSection.style.position = 'relative';
+        xboxSection.style.zIndex = '1000';
     }
     
-    function stopXboxAnimation() {
-        isXboxAnimationActive = false;
-        document.body.style.overflow = 'auto'; // Re-enable scrolling
+    function releaseScrollLock() {
+        isScrollLocked = false;
+        document.body.style.overflow = 'auto';
+        xboxSection.style.position = '';
+        xboxSection.style.zIndex = '';
+        scrollAccumulator = 0;
+    }
+    
+    let touchStartY = 0;
+    
+    function handleTouchStart(e) {
+        if (!isScrollLocked) return;
+        touchStartY = e.touches[0].clientY;
+    }
+    
+    function handleTouchMove(e) {
+        if (!isScrollLocked) return;
+        
+        e.preventDefault();
+        const touchY = e.touches[0].clientY;
+        const deltaY = touchStartY - touchY;
+        touchStartY = touchY;
+        
+        processScrollInput(deltaY);
+    }
+    
+    function handleScrollInput(e) {
+        if (!isScrollLocked) return;
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Use deltaY for scroll direction and magnitude
+        processScrollInput(e.deltaY);
+        
+        return false;
+    }
+    
+    function processScrollInput(deltaY) {
+        // Accumulate scroll input
+        scrollAccumulator += deltaY;
+        
+        // Adjust sensitivity - higher number = more scroll needed per frame
+        const sensitivity = 30;
+        
+        if (Math.abs(scrollAccumulator) >= sensitivity) {
+            const direction = scrollAccumulator > 0 ? 1 : -1;
+            const frameChange = Math.floor(Math.abs(scrollAccumulator) / sensitivity);
+            
+            // Update current frame
+            currentFrame += direction * frameChange;
+            
+            // Keep frame within bounds
+            currentFrame = Math.max(1, Math.min(91, currentFrame));
+            
+            // Reset accumulator
+            scrollAccumulator = scrollAccumulator % sensitivity;
+            
+            // Update the displayed frame
+            updateXboxFrame();
+            
+            // Check if animation is complete
+            if (currentFrame >= 91) {
+                // Allow a bit more scroll to release the lock
+                if (deltaY > 0) {
+                    setTimeout(() => {
+                        releaseScrollLock();
+                        // Continue normal scroll
+                        window.scrollBy(0, deltaY);
+                    }, 200);
+                }
+            }
+        }
+    }
+    
+    function updateXboxFrame() {
+        if (xboxAnimationElement && xboxFrames[currentFrame - 1]) {
+            xboxAnimationElement.src = xboxFrames[currentFrame - 1];
+        }
     }
     
     function setupCupHoverAnimation() {
