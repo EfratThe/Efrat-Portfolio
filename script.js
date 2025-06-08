@@ -177,27 +177,18 @@ document.addEventListener('DOMContentLoaded', () => {
     // Load Cup frames
     for (let i = 9655; i <= 9673; i++) {
         cupFrames.push(`Projects-Pictures/Cup-Frames/_MG_${i}.JPG`);
-    }
-      function initializeAnimations() {
-        console.log('Initializing animations...');
+    }    function initializeAnimations() {
         xboxAnimationElement = document.getElementById('xbox-animation');
         xboxSection = document.getElementById('scroll-animation');
         cupAnimationElement = document.getElementById('cup-interactive');
         
-        console.log('XBOX elements found:', {
-            xboxAnimationElement: !!xboxAnimationElement,
-            xboxSection: !!xboxSection
-        });
-        
         // Setup XBOX scroll animation
         if (xboxAnimationElement && xboxSection) {
-            console.log('Setting up XBOX scroll animation');
             setupXboxScrollAnimation();
         }
         
         // Setup Cup hover animation
         if (cupAnimationElement) {
-            console.log('Setting up Cup hover animation');
             setupCupHoverAnimation();
         }
     }
@@ -217,36 +208,52 @@ document.addEventListener('DOMContentLoaded', () => {
                 releaseScrollLock();
             }
         });
-    }
-      function checkXboxSectionPosition() {
-        if (!xboxSection || isScrollLocked) return;
+    }    function checkXboxSectionPosition() {
+        if (!xboxSection) return; // Remove isScrollLocked check for upward scroll detection
         
         const rect = xboxSection.getBoundingClientRect();
         const windowHeight = window.innerHeight;
         const sectionCenter = rect.top + rect.height / 2;
         const screenCenter = windowHeight / 2;
         
-        // Debug output (remove after testing)
-        const distance = Math.abs(sectionCenter - screenCenter);
-        if (distance < 200) { // Only log when getting close
-            console.log('XBOX section position:', {
-                sectionCenter,
-                screenCenter,
-                distance,
-                shouldActivate: distance < 100
-            });
+        // Detect scroll direction
+        const currentScrollY = window.scrollY;
+        const scrollDirection = currentScrollY > (window.lastScrollY || 0) ? 1 : -1;
+        window.lastScrollY = currentScrollY;
+        
+        // Keep history of recent scroll directions
+        if (!window.scrollDirectionHistory) window.scrollDirectionHistory = [];
+        window.scrollDirectionHistory.push(scrollDirection);
+        if (window.scrollDirectionHistory.length > 5) {
+            window.scrollDirectionHistory.shift();
         }
         
-        // Check if section center is near screen center (within 100px tolerance)
-        if (Math.abs(sectionCenter - screenCenter) < 100 && rect.top <= screenCenter && rect.bottom >= screenCenter) {
-            console.log('Activating scroll lock!');
+        // Check if consistently scrolling up
+        const isScrollingUp = window.scrollDirectionHistory.length >= 3 && 
+                             window.scrollDirectionHistory.slice(-3).every(dir => dir === -1);
+        
+        // More precise center detection - section center must be very close to screen center
+        const distance = Math.abs(sectionCenter - screenCenter);
+        const isInCenter = distance < 50 && // Tighter tolerance (was 100px)
+                          rect.top < screenCenter && // Section started above center
+                          rect.bottom > screenCenter && // Section extends below center
+                          rect.top > -rect.height * 0.3 && // Section not too far above viewport
+                          rect.bottom < windowHeight + rect.height * 0.3; // Section not too far below viewport
+          // If scrolling up and entering animation zone, play reverse animation but don't lock
+        if (isScrollingUp && isInCenter) {
+            if (!isScrollLocked) {
+                playReverseAnimation();
+            }
+            return; // Don't activate lock when scrolling up
+        }
+        
+        // Only activate lock when scrolling down, in center, and not already locked
+        if (!isScrollingUp && !isScrollLocked && isInCenter) {
             activateScrollLock();
         }
-    }
-      function activateScrollLock() {
+    }    function activateScrollLock() {
         if (isScrollLocked) return;
         
-        console.log('🔒 SCROLL LOCK ACTIVATED');
         isScrollLocked = true;
         document.body.style.overflow = 'hidden';
         scrollAccumulator = 0;
@@ -299,9 +306,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function processScrollInput(deltaY) {
         // Accumulate scroll input
         scrollAccumulator += deltaY;
-        
-        // Adjust sensitivity - higher number = more scroll needed per frame
-        const sensitivity = 30;
+          // Adjust sensitivity - higher number = more scroll needed per frame
+        const sensitivity = 15;
         
         if (Math.abs(scrollAccumulator) >= sensitivity) {
             const direction = scrollAccumulator > 0 ? 1 : -1;
@@ -332,11 +338,26 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
     }
-    
-    function updateXboxFrame() {
+      function updateXboxFrame() {
         if (xboxAnimationElement && xboxFrames[currentFrame - 1]) {
             xboxAnimationElement.src = xboxFrames[currentFrame - 1];
         }
+    }
+      function playReverseAnimation() {
+        // Play animation in reverse from current frame to frame 1
+        let reverseFrame = currentFrame;
+        
+        const reverseInterval = setInterval(() => {
+            reverseFrame--;
+            if (reverseFrame >= 1) {
+                if (xboxAnimationElement && xboxFrames[reverseFrame - 1]) {
+                    xboxAnimationElement.src = xboxFrames[reverseFrame - 1];
+                }
+            } else {
+                clearInterval(reverseInterval);
+                currentFrame = 1; // Reset to first frame
+            }
+        }, 15); // Even faster reverse animation (was 25ms, now 15ms)
     }
     
     function setupCupHoverAnimation() {
