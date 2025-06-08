@@ -1,0 +1,1 @@
+Before you do anything, read the .ai-context.md file in the root of this repository. It contains important information about how to use this repository and its code.

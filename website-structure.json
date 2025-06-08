@@ -1,0 +1,321 @@
+{
+  "version": "1.2.0",
+  "lastUpdated": "2025-06-08",
+  "author": "EfratThe",
+  "templateStructure": {
+    "sections": [
+      {
+        "id": "intro",
+        "type": "full-screen",
+        "name": "Introduction/Landing Page",
+        "description": "Full-screen introduction section featuring the animated logo with subtle colorful particles",
+        "content": {
+          "logo": {
+            "type": "animation",
+            "description": "Animated Levenim MT font logo that serves as the focal point of the landing page",
+            "containerStyle": "logo-container-large",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Logo animation can be updated but must remain as the central element"
+            }
+          },
+          "particles": {
+            "type": "background-animation",
+            "description": "Subtle colorful particles that follow cursor movement",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Particle colors and density can be adjusted but should remain subtle and interactive"
+            }
+          }
+        },        "layout": "centered",
+        "height": "100vh",
+        "scrollBehavior": "natural-scroll",
+        "structureNotes": "This section must remain full-screen and centered"
+      },
+      {        "id": "scroll-animation",
+        "type": "section",
+        "name": "XBOX Controller CAD Modeling",        "description": "Section showcasing XBOX Controller CAD modeling project with scroll-triggered animation demonstrating SolidWorks and KeyShot expertise",
+        "content": {
+          "animation": {
+            "type": "scroll-frames",
+            "description": "XBOX Controller CAD modeling process animation using 91 frames showing detailed 3D modeling and rendering workflow",
+            "containerStyle": "animation-block",
+            "behavior": {
+              "trigger": "scroll-into-view",
+              "requiresFullVisibility": true,
+              "pausesScroll": true,
+              "frameCount": 91,
+              "frameRate": "100ms",
+              "frameSource": "Projects-Pictures/XBOX-Frames/",
+              "framePattern": "XBOX.5.{i}.jpg"
+            },
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Animation frames can be replaced but scroll mechanism and pause behavior must remain"
+            }
+          },
+          "text": {
+            "type": "content-block",
+            "description": "Text explaining the project",
+            "containerStyle": "text-block",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Text content can be replaced but block must remain"
+            }
+          }
+        },
+        "layout": "text-left-animation-right",
+        "structureNotes": "Animation must remain right-aligned with text on the left"
+      },
+      {        "id": "project-1",
+        "type": "project-section",
+        "name": "Smart Cane",
+        "description": "Arduino-based assistive mobility device with obstacle detection technology for visually impaired users",
+        "content": {
+          "topRow": {
+            "image": {
+              "type": "image",
+              "description": "Left-aligned project image that extends to left screen edge",
+              "containerStyle": "image-block left",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            },
+            "text": {
+              "type": "content-block",
+              "description": "Right-aligned text about the project",
+              "containerStyle": "text-block",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            }
+          },
+          "bottomRow": {
+            "image": {
+              "type": "image",
+              "description": "Right-aligned project detail image that extends to right screen edge",
+              "containerStyle": "image-block right",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            },
+            "text": {
+              "type": "content-block",
+              "description": "Left-aligned text with additional project details",
+              "containerStyle": "text-block",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            }
+          }
+        },
+        "layout": "alternating",
+        "structureNotes": "Must maintain alternating layout pattern with images extending to screen edges"
+      },
+      {        "id": "full-width-project",
+        "type": "section",
+        "name": "BiBike",
+        "description": "Dual-mode bicycle design that transitions between regular cycling and stationary exercise",
+        "content": {
+          "image": {
+            "type": "full-width-image",
+            "description": "Full-width project image that extends to both screen edges",
+            "containerStyle": "full-width-image",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false
+            }
+          },
+          "text": {
+            "type": "centered-text",
+            "description": "Centered text explaining the project",
+            "containerStyle": "centered-text",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false
+            }
+          }
+        },
+        "layout": "stacked",
+        "structureNotes": "Image must remain full-width with centered text below"
+      },
+      {        "id": "project-2",
+        "type": "project-section",
+        "name": "ModuTable",
+        "description": "Modular kitchen organization system designed for elderly users to maintain order and accessibility",
+        "content": {
+          "topRow": {
+            "image": {
+              "type": "image",
+              "description": "Left-aligned project image that extends to left screen edge",
+              "containerStyle": "image-block left",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            },
+            "text": {
+              "type": "content-block",
+              "description": "Right-aligned text about the project",
+              "containerStyle": "text-block",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            }
+          },
+          "bottomRow": {
+            "image": {
+              "type": "image",
+              "description": "Right-aligned project detail image that extends to right screen edge",
+              "containerStyle": "image-block right",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            },
+            "text": {
+              "type": "content-block",
+              "description": "Left-aligned text with additional project details",
+              "containerStyle": "text-block",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            }
+          }
+        },
+        "layout": "alternating",
+        "structureNotes": "Must maintain alternating layout pattern with images extending to screen edges"
+      },
+      {        "id": "interactive-project",
+        "type": "section",
+        "name": "AirSip",        "description": "Atmospheric water harvester designed for water-scarce regions in Africa using condensation technology",
+        "content": {
+          "media": {
+            "type": "hover-animation",
+            "description": "Cup project image that shows static Cup.png initially, then plays frame animation on hover",
+            "containerStyle": "interactive-image",
+            "behavior": {
+              "defaultImage": "Projects-Pictures/Cup.png",
+              "trigger": "hover",
+              "animationType": "frame-sequence",
+              "frameCount": 19,
+              "frameRate": "150ms",
+              "frameSource": "Projects-Pictures/Cup-Frames/",
+              "framePattern": "_MG_{9655-9673}.JPG",
+              "loops": true,
+              "returnsToDefault": true
+            },
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Media files can be replaced but hover interaction and frame animation must remain"
+            }
+          },
+          "text": {
+            "type": "centered-text",
+            "description": "Text explaining the interactive project",
+            "containerStyle": "centered-text",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false
+            }
+          }
+        },
+        "layout": "centered",
+        "structureNotes": "Media must remain centered with interaction on hover, and NOT extend to edges"
+      },
+      {
+        "id": "footer",
+        "type": "footer",
+        "name": "Footer",
+        "description": "Page footer with copyright and social links",
+        "content": {
+          "copyright": {
+            "type": "text",
+            "description": "Copyright information",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false
+            }
+          },
+          "socialLinks": {
+            "type": "links",
+            "description": "Social media links",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "canAdd": true,
+              "notes": "Links can be added, removed or modified"
+            }
+          }
+        },
+        "layout": "horizontal",
+        "structureNotes": "Footer must remain at the bottom of the page"
+      }
+    ]
+  },
+  "cssRules": {
+    "maintainStructure": [
+      "Keep all section IDs unchanged",
+      "Preserve the order of sections",
+      "Maintain the responsive breakpoints",
+      "Keep the core layout patterns for each section",
+      "Preserve the animation and interaction mechanisms",
+      "All image sections except the last one must extend to screen edges",
+      "The interactive media section must NOT extend to screen edges"
+    ],
+    "allowedChanges": [
+      "Content text and images",
+      "Color scheme and typography",
+      "Spacing within reasonable limits",
+      "Animation content (but not structure)",
+      "Social media links",
+      "Particle colors and density"
+    ]
+  },
+  "contentGuidelines": {
+    "fonts": {
+      "logo": "Levenim MT",
+      "body": "Quicksand"
+    },
+    "images": {
+      "formats": ["jpg", "png", "webp"],
+      "quality": "high-resolution",
+      "aspectRatios": {
+        "project-images": "3:2 recommended",
+        "full-width": "16:9 recommended",
+        "hover-media": "3:2 recommended"
+      },
+      "edgeExtension": {
+        "rule": "All images except in the interactive section must extend to screen edges based on their position",
+        "left": "Left-aligned images extend to left screen edge",
+        "right": "Right-aligned images extend to right screen edge",
+        "full": "Full-width images extend to both edges"
+      }
+    },
+    "text": {
+      "heading": "Should be concise and descriptive",
+      "paragraphs": "Should be clear and professional, focusing on project details",
+      "length": "Keep paragraphs brief for better readability"
+    },
+    "videos": {
+      "formats": ["mp4", "webm"],
+      "duration": "Keep under 10 seconds for hover interactions",
+      "autoplay": "Only on hover, should not autoplay otherwise"
+    },
+    "particles": {
+      "style": "Subtle colorful individual particles without connecting lines",
+      "interactivity": "Should follow cursor movement and respond to clicks"
+    }
+  }
+}

@@ -3,438 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Portfolio</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
-    <style>
-        /* ===== GLOBAL STYLES ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Quicksand', sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #fff;
-        }
-
-        /* ===== HEADER WITH ANIMATED LOGO ===== */
-        @import url('https://fonts.googleapis.com/css2?family=Levenim+MT&display=swap');        .header {
-            position: relative;
-            width: 100%;
-            height: 95vh;
-            background: #fff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-        }
-        
-        .logo-container {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .subtitle {
-            font-size: 1.5rem;
-            color: #666;
-            font-weight: 300;
-            letter-spacing: 0.1em;
-            margin-top: 1rem;
-        }
-        
-        .logo {
-            font-size: 4rem;
-            font-weight: normal;
-            letter-spacing: -0.02em;
-            color: black;
-            display: flex;
-            align-items: baseline;
-        }
-        
-        .letter {
-            display: inline-block;
-            transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-            position: relative;
-        }
-        
-        .letter.e1 { transition-delay: 0.1s; }
-        .letter.f { transition-delay: 0.2s; }
-        .letter.r { transition-delay: 0.3s; }
-        .letter.a { 
-            transition-delay: 0.4s;
-            transform: rotate(-5deg);
-        }
-        .letter.t { transition-delay: 0.5s; }
-        
-        /* Enhanced individual animations for each letter */
-        .letter.e1.hop {
-            animation: hopE1 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        .letter.f.hop {
-            animation: hopF 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        .letter.r.hop {
-            animation: hopR 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        .letter.a.hop {
-            animation: hopA 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        .letter.t.hop {
-            animation: hopT 1s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        }
-        
-        /* E - tiny up movement with gentle left tilt */
-        @keyframes hopE1 {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(-8px) translateX(-2px) rotate(-4deg); }
-            50% { transform: translateY(-5px) translateX(-1px) rotate(-2deg); }
-            75% { transform: translateY(-2px) translateX(0) rotate(-1deg); }
-            100% { transform: translateY(0) translateX(0) rotate(0deg); }
-        }
-        
-        /* f - tiny down movement with gentle right tilt */
-        @keyframes hopF {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(4px) translateX(1px) rotate(3deg); }
-            50% { transform: translateY(6px) translateX(2px) rotate(4deg); }
-            75% { transform: translateY(3px) translateX(1px) rotate(2deg); }
-            100% { transform: translateY(0) translateX(0) rotate(0deg); }
-        }
-        
-        /* r - tiny up movement with gentle right tilt */
-        @keyframes hopR {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(-10px) translateX(2px) rotate(5deg); }
-            50% { transform: translateY(-6px) translateX(1px) rotate(3deg); }
-            75% { transform: translateY(-2px) translateX(0) rotate(1deg); }
-            100% { transform: translateY(0) translateX(0) rotate(0deg); }
-        }
-        
-        /* a - straightens gently first, then back to tilted */
-        @keyframes hopA {
-            0% { transform: translateY(0) translateX(0) rotate(-5deg); }
-            20% { transform: translateY(-3px) translateX(1px) rotate(0deg); }
-            40% { transform: translateY(-8px) translateX(-1px) rotate(3deg); }
-            60% { transform: translateY(-4px) translateX(0) rotate(-2deg); }
-            80% { transform: translateY(-1px) translateX(0) rotate(-3deg); }
-            100% { transform: translateY(0) translateX(0) rotate(-5deg); }
-        }
-        
-        /* t - tiny down movement with gentle left tilt */
-        @keyframes hopT {
-            0% { transform: translateY(0) translateX(0) rotate(0deg); }
-            25% { transform: translateY(5px) translateX(-1px) rotate(-6deg); }
-            50% { transform: translateY(8px) translateX(-2px) rotate(-4deg); }
-            75% { transform: translateY(2px) translateX(-1px) rotate(-2deg); }
-            100% { transform: translateY(0) translateX(0) rotate(0deg); }
-        }
-
-        /* ===== SCROLL-TRIGGERED ANIMATION SECTION ===== */        .animation-section {
-            position: relative;
-            height: 100vh;
-            background-color: #f8f9fa;
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-
-        .animation-content {
-            position: sticky;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 100%;
-            max-width: 1200px;
-            height: 80vh;
-            display: grid;
-            grid-template-columns: minmax(300px, 1fr) minmax(600px, 2fr);
-            gap: 40px;
-            align-items: center;
-            padding: 0 40px;
-            z-index: 1;
-        }
-
-        .animation-frames {
-            position: relative;
-            width: 100%;
-            height: 80vh;
-            background: #000;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-
-        #animation-frame {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-
-        #animation-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* Animation section styles removed */
-
-        .animation-text {
-            padding: 20px;
-        }
-
-        .animation-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .animation-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        /* ===== PROJECT SECTIONS WITH ALTERNATING LAYOUT ===== */
-        .project-section {
-            padding: 80px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .project-section:nth-child(even) {
-            background-color: #f8f9fa;
-        }
-
-        .project-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
-            align-items: center;
-            margin-bottom: 60px;
-        }
-
-        .project-content.reverse {
-            direction: rtl;
-        }
-
-        .project-content.reverse > * {
-            direction: ltr;
-        }
-
-        .project-image {
-            width: 100%;
-            height: 300px;
-            background: #ddd;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.1rem;
-            color: #666;
-            overflow: hidden;
-        }
-
-        .project-content:not(.reverse) .project-image {
-            width: 70%;
-            margin-left: -40px;
-        }
-
-        .project-content.reverse .project-image {
-            width: 70%;
-            margin-right: -40px;
-            margin-left: auto;
-        }
-
-        .project-content.reverse .project-image img {
-            transform: none;  /* Remove image mirroring */
-        }
-
-        .project-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.3s ease;
-        }
-
-        /* Special case for StickClose image */
-        .project-image img[src*="StickClose"] {
-            width: 40%;
-            margin-left: auto;
-        }
-
-        .project-image:hover img {
-            transform: scale(1.05);
-        }
-
-        .project-text h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .project-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        /* ===== FULL-WIDTH IMAGE SECTION ===== */
-        .fullwidth-section {
-            padding: 0;
-            margin: 80px 0;
-        }
-
-        .fullwidth-image {
-            width: 100%;
-            height: 70vh;
-            background: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.2rem;
-            color: #666;
-            overflow: hidden;
-        }
-
-        .fullwidth-image img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-        .fullwidth-text {
-            max-width: 800px;
-            margin: 40px auto 0;
-            padding: 0 20px;
-            text-align: center;
-        }
-
-        .fullwidth-text h3 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .fullwidth-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        /* ===== HOVER VIDEO SECTION ===== */
-        .video-hover-section {
-            padding: 80px 0;
-            text-align: center;
-        }
-
-        .video-container {
-            position: relative;
-            max-width: 800px;
-            margin: 0 auto;
-            border-radius: 20px;
-            overflow: hidden;
-            cursor: pointer;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
-        }
-
-        .video-container img,
-        .video-container video {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: opacity 0.3s ease;
-        }
-
-        .video-container video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            opacity: 0;
-        }
-
-        .video-container:hover video {
-            opacity: 1;
-        }
-
-        .video-container:hover img {
-            opacity: 0;
-        }
-
-        .video-text {
-            max-width: 600px;
-            margin: 40px auto 0;
-        }
-
-        .video-text h3 {
-            font-size: 2.2rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
-        }
-
-        .video-text p {
-            font-size: 1.1rem;
-            line-height: 1.8;
-            color: #555;
-        }
-
-        /* ===== RESPONSIVE DESIGN ===== */
-        @media (max-width: 768px) {
-            .animation-content,
-            .project-content {
-                grid-template-columns: 1fr;
-                gap: 30px;
-            }
-
-            .project-content.reverse {
-                direction: ltr;
-            }
-
-            .animation-text h2,
-            .project-text h3,
-            .fullwidth-text h3,
-            .video-text h3 {
-                font-size: 1.8rem;
-            }
-
-            .fullwidth-image {
-                height: 50vh;
-            }
-        }
-
-        /* ===== SMOOTH SCROLLING ===== */
-        html {
-            scroll-behavior: smooth;
-        }
-
-        /* ===== SCROLL ANIMATION TRIGGER (You can expand this) ===== */
-        .scroll-animate {
-            opacity: 0;
-            transform: translateY(30px);
-            transition: all 0.6s ease;
-        }
-
-        .scroll-animate.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-    </style>
+    <title>Efrat's Design Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
 </head>
-<body>    <!-- ===== HEADER WITH ANIMATED LOGO ===== -->
-    <header class="header">
+<body>
+    <!-- Fade-in Header -->
+    <header id="main-header" class="header">
         <div class="logo-container">
             <div class="logo">
                 <span class="letter e1">E</span>
@@ -443,411 +18,120 @@
                 <span class="letter a">a</span>
                 <span class="letter t">t</span>
             </div>
-            <div class="subtitle">Industrial Design</div>
-        </div>
+        </div>        <nav class="nav-menu">
+            <ul>
+                <li><a href="#intro">Home</a></li>
+                <li><a href="#scroll-animation">XBOX Controller</a></li>
+                <li><a href="#project-1">Smart Cane</a></li>
+                <li><a href="#full-width-project">BiBike</a></li>
+                <li><a href="#project-2">ModuTable</a></li>
+                <li><a href="#interactive-project">AirSip</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <!-- ===== SCROLL-TRIGGERED ANIMATION SECTION ===== -->
-    <section class="animation-section">
-        <div class="container">
-            <div class="animation-content scroll-animate">
-                <div class="animation-text">
-                    <h2>Project Title</h2>
-                    <p>Replace this paragraph with your project description. Explain what this animation shows, the concept behind it, and any technical details you'd like to highlight. This text will appear to the left of your animation.</p>
+    <!-- Introduction Section with Particle Background -->
+    <section id="intro" class="full-screen">
+        <div id="particles-js"></div>
+        <div class="intro-content">
+            <div class="logo-container-large">
+                <div class="logo large">
+                    <span class="letter e1">E</span>
+                    <span class="letter f">f</span>
+                    <span class="letter r">r</span>
+                    <span class="letter a">a</span>
+                    <span class="letter t">t</span>
                 </div>
-                <div class="animation-frames" id="animation-container">
-                    <div id="animation-frame" class="frame-display">
-                        <!-- Frame will be displayed here -->
-                    </div>
-                </div>
+            </div>
+            <h2 class="tagline">Industrial Design Portfolio</h2>
+        </div>
+    </section>
+
+    <!-- Scroll Animation Section (Placeholder) -->
+    <section id="scroll-animation" class="section">
+        <div class="content-wrapper">            <div class="text-block">
+                <h2>XBOX Controller CAD Modeling</h2>
+                <p>Comprehensive 3D modeling project showcasing precision in SolidWorks CAD design and photorealistic rendering in KeyShot. This project demonstrates attention to detail in recreating complex consumer electronics through technical modeling and advanced visualization techniques.</p>
+            </div>            <div class="animation-block" id="scroll-frames">
+                <img src="Projects-Pictures/XBOX-Frames/XBOX.5.1.jpg" alt="XBOX Controller CAD Modeling Process" class="frame-image" id="xbox-animation" />
             </div>
         </div>
     </section>
 
-    <!-- ===== PROJECT SECTION 1 - IMAGE LEFT, TEXT RIGHT ===== -->
-    <section class="project-section">
-        <div class="container">
-            <div class="project-content scroll-animate">                <div class="project-image">
-                    <img src="Projects-Pictures/Stick.png" alt="Stick Project">
-                </div>
-                <div class="project-text">
-                    <h3>Project Name</h3>
-                    <p>Replace this with your project description. Talk about the goals, process, and outcomes. This layout has the image on the left and text on the right.</p>
-                </div>
+    <!-- Project Display 1 (Placeholder) -->
+    <section id="project-1" class="section project-section">        <div class="content-wrapper">
+            <div class="image-block left">
+                <img src="Projects-Pictures/Stick.png" alt="Smart Cane - Arduino-Based Obstacle Detection" />
             </div>
-
-            <!-- SECOND ROW - IMAGE RIGHT, TEXT LEFT -->
-            <div class="project-content reverse scroll-animate">                <div class="project-image">
-                    <img src="Projects-Pictures/StickClose.png" alt="StickClose Project">
-                </div>
-                <div class="project-text">
-                    <h3>Project Detail</h3>
-                    <p>Another paragraph for the same project. This layout has the image on the right and text on the left, creating a nice alternating pattern.</p>
-                </div>
+            <div class="text-block">
+                <h2>Smart Cane</h2>
+                <p>An innovative assistive device designed to enhance mobility for visually impaired users. Integrating Arduino technology with distance sensors to detect obstacles at height level, providing auditory feedback for safer navigation.</p>
+            </div>
+        </div>        <div class="content-wrapper reverse">
+            <div class="text-block">
+                <h2>Technology Integration</h2>
+                <p>The Smart Cane combines ergonomic design principles with advanced sensor technology. The Arduino-based system processes distance measurements to alert users of overhead obstacles, filling a critical gap in traditional mobility aids.</p>
+            </div>
+            <div class="image-block right">
+                <img src="Projects-Pictures/StickClose.png" alt="Smart Cane - Detailed Component View" />
             </div>
         </div>
     </section>
 
-    <!-- ===== FULL-WIDTH IMAGE SECTION ===== -->
-    <section class="fullwidth-section">
-        <div class="fullwidth-image scroll-animate">
-            <!-- REPLACE THIS: Add your full-width project image -->
-            <img src="your-fullwidth-image.jpg" alt="Full Width Project" style="display: none;">
-            <p>Full Width Project Image</p>
+    <!-- Full-Width Project (Placeholder) -->
+    <section id="full-width-project" class="section">        <div class="full-width-image">
+            <img src="Projects-Pictures/בייביק.JPG" alt="BiBike - Dual-Mode Exercise Bicycle" />
         </div>
-        <div class="fullwidth-text scroll-animate">
-            <h3>Featured Project</h3>
-            <p>This is a full-width image section perfect for showcasing a major project. The image takes up most of the screen width, with this descriptive text centered below it. Great for hero shots or detailed work.</p>
+        <div class="centered-text">
+            <h2>BiBike</h2>
+            <p>A revolutionary dual-mode bicycle design that seamlessly transitions between regular outdoor cycling and stationary indoor exercise. Perfect for maintaining fitness routines regardless of weather conditions or space constraints.</p>
         </div>
     </section>
 
-    <!-- ===== PROJECT SECTION 2 - ANOTHER ALTERNATING SET ===== -->
-    <section class="project-section">
-        <div class="container">
-            <div class="project-content scroll-animate">
-                <div class="project-image">
-                    <!-- REPLACE THIS: Add your project image -->
-                    <img src="your-image-3.jpg" alt="Project Image" style="display: none;">
-                    <p>Project Image 3</p>
-                </div>
-                <div class="project-text">
-                    <h3>Another Project</h3>
-                    <p>Description for your second major project. This follows the same alternating layout pattern as the first project section.</p>
-                </div>
+    <!-- Project Display 2 (Placeholder) -->
+    <section id="project-2" class="section project-section">        <div class="content-wrapper">
+            <div class="image-block left">
+                <img src="Projects-Pictures/0016_00.jpg" alt="ModuTable - Modular Kitchen Organization System" />
             </div>
-
-            <div class="project-content reverse scroll-animate">
-                <div class="project-image">
-                    <!-- REPLACE THIS: Add your project image -->
-                    <img src="your-image-4.jpg" alt="Project Image" style="display: none;">
-                    <p>Project Image 4</p>
-                </div>
-                <div class="project-text">
-                    <h3>Project Details</h3>
-                    <p>More details about this project. The reverse class makes this image appear on the right side.</p>
-                </div>
+            <div class="text-block">
+                <h2>ModuTable</h2>
+                <p>A thoughtfully designed modular organization system created specifically for my grandmother's kitchen table. Each component addresses her daily activities while maintaining order and accessibility in a compact space.</p>
+            </div>
+        </div>        <div class="content-wrapper reverse">
+            <div class="text-block">
+                <h2>Personalized Design</h2>
+                <p>This modular table set transforms chaos into calm by providing dedicated spaces for everything from meal preparation to crafting. The system adapts to different activities while keeping essentials organized and within reach.</p>
+            </div>
+            <div class="image-block right">
+                <img src="Projects-Pictures/0029_00.jpg" alt="ModuTable - Component Details and Organization" />
             </div>
         </div>
     </section>
 
-    <!-- ===== HOVER VIDEO SECTION ===== -->
-    <section class="video-hover-section">
-        <div class="container">
-            <div class="video-container scroll-animate">
-                <!-- REPLACE THESE: Add your still image and video -->
-                <img src="your-video-poster.jpg" alt="Video Poster" style="display: none;">
-                <video muted loop>
-                    <source src="your-video.mp4" type="video/mp4">
-                </video>
-                <!-- PLACEHOLDER - Remove this when you add real media -->
-                <div style="height: 400px; background: #ddd; display: flex; align-items: center; justify-content: center; color: #666;">
-                    Hover Video Project<br>
-                    <small>Still image → Video on hover</small>
-                </div>
-            </div>
-            <div class="video-text scroll-animate">
-                <h3>Interactive Project</h3>
-                <p>This project features a hover interaction - visitors see a still image that transforms into a video when they hover over it. Perfect for showing before/after states or animated demonstrations.</p>
-            </div>
+    <!-- Interactive Media Section (Placeholder) -->
+    <section id="interactive-project" class="section">        <div class="centered-media">
+            <img src="Projects-Pictures/Cup.png" alt="AirSip - Atmospheric Water Harvester" class="interactive-image" id="cup-interactive" />
+        </div>
+        <div class="centered-text">
+            <h2>AirSip</h2>
+            <p>A humanitarian design solution for water-scarce regions in Africa. This atmospheric water harvester uses condensation technology to extract clean drinking water from ambient air, providing a sustainable water source for communities in need.</p>
         </div>
     </section>
 
-    <script>
-        // ===== SCROLL ANIMATIONS =====
-        // This makes elements fade in as you scroll to them
-        function handleScrollAnimations() {
-            const animateElements = document.querySelectorAll('.scroll-animate');
-            
-            animateElements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150; // Trigger point
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('active');
-                }
-            });
-        }
+    <!-- Footer (Placeholder) -->
+    <footer id="footer">
+        <div class="footer-content">
+            <p>© 2025 Efrat • Industrial Design Portfolio</p>
+            <div class="social-links">
+                <a href="#" class="social-link">LinkedIn</a>
+                <a href="#" class="social-link">Instagram</a>
+                <a href="#" class="social-link">Email</a>
+            </div>
+        </div>
+    </footer>
 
-        // Run on scroll
-        window.addEventListener('scroll', handleScrollAnimations);
-        // Run on page load
-        handleScrollAnimations();
-
-        // ===== VIDEO HOVER FUNCTIONALITY =====
-        document.querySelectorAll('.video-container').forEach(container => {
-            const video = container.querySelector('video');
-            
-            container.addEventListener('mouseenter', () => {
-                if (video) video.play();
-            });
-            
-            container.addEventListener('mouseleave', () => {
-                if (video) {
-                    video.pause();
-                    video.currentTime = 0;
-                }
-            });
-        });
-
-        // ===== SMOOTH SCROLLING FOR INTERNAL LINKS =====
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // ===== LOGO ANIMATION ===== //
-        const letters = document.querySelectorAll('.letter');
-        let hasTriggeredOnLoad = false;
-        let isAtTop = true;
-        
-        function triggerAnimation() {
-            letters.forEach(letter => {
-                letter.classList.remove('hop');
-                // Force reflow
-                letter.offsetHeight;
-                letter.classList.add('hop');
-            });
-            
-            // Remove the hop class after animation completes
-            setTimeout(() => {
-                letters.forEach(letter => {
-                    letter.classList.remove('hop');
-                });
-            }, 1000);
-        }
-        
-        // Trigger animation on page load with slight delay
-        window.addEventListener('load', () => {
-            setTimeout(() => {
-                if (!hasTriggeredOnLoad) {
-                    triggerAnimation();
-                    hasTriggeredOnLoad = true;
-                }
-            }, 500);
-        });
-        
-        // Also trigger if DOM is already loaded
-        if (document.readyState === 'complete') {
-            setTimeout(() => {
-                if (!hasTriggeredOnLoad) {
-                    triggerAnimation();
-                    hasTriggeredOnLoad = true;
-                }
-            }, 500);
-        }
-        
-        // Trigger animation when scrolling back to top
-        let scrollTimeout;
-        window.addEventListener('scroll', () => {
-            clearTimeout(scrollTimeout);
-            scrollTimeout = setTimeout(() => {
-                const scrollPosition = window.scrollY;
-                const wasAtTop = isAtTop;
-                isAtTop = scrollPosition < 100;
-                
-                // If we just scrolled back to top (and weren't there before)
-                if (isAtTop && !wasAtTop) {
-                    triggerAnimation();
-                }
-            }, 50);
-        });
-        
-        // Touch support for mobile
-        let touchStartY = 0;
-        let lastScrollY = window.scrollY;
-        
-        window.addEventListener('touchstart', (e) => {
-            touchStartY = e.touches[0].clientY;
-            lastScrollY = window.scrollY;
-        });
-        
-        window.addEventListener('touchend', () => {
-            const currentScrollY = window.scrollY;
-            
-            // If we scrolled up to near the top
-            if (currentScrollY < 100 && lastScrollY > 200) {
-                triggerAnimation();
-            }
-        });
-
-        // Place this script at the end of the body
-        document.addEventListener('DOMContentLoaded', function() {
-            const frames = Array.from({length: 91}, (_, i) => 
-                `XBOX-Frames/XBOX.5.${i + 1}.jpg`
-            );
-
-            const animationSection = document.querySelector('.animation-section');
-            const animationFrame = document.getElementById('animation-frame');
-            let currentFrame = 0;
-            let isAnimating = false;
-            let isInAnimationSection = false;
-            let hasCompletedAnimation = false;
-            let scrollPosition = 0;
-            
-            // Preload images and display first frame
-            const preloadedImages = frames.map(src => {
-                const img = new Image();
-                img.src = src;
-                return img;
-            });
-
-            // Set initial frame
-            if (animationFrame) {
-                animationFrame.innerHTML = `<img src="${frames[0]}" alt="Animation frame 1" id="current-image">`;
-            }
-
-            function isElementInViewport(el) {
-                const rect = el.getBoundingClientRect();
-                const windowHeight = window.innerHeight;
-                // Only trigger when the section is properly in view
-                return (rect.top <= windowHeight * 0.3 && rect.bottom >= windowHeight * 0.3);
-            }
-
-            function updateFrame(direction) {
-                if (isAnimating) return;
-                isAnimating = true;
-
-                const frameSkip = 3; // Increase this number to make animation faster
-                let nextFrame = currentFrame;
-                if (direction === 'down' && currentFrame < frames.length - 1) {
-                    nextFrame = Math.min(frames.length - 1, currentFrame + frameSkip);
-                } else if (direction === 'up' && currentFrame > 0) {
-                    nextFrame = Math.max(0, currentFrame - frameSkip);
-                }
-
-                if (nextFrame !== currentFrame) {
-                    const img = document.getElementById('current-image');
-                    if (img) {
-                        img.src = frames[nextFrame];
-                        currentFrame = nextFrame;
-                    }
-                }
-
-                isAnimating = false;
-            }
-
-            function handleScroll(e) {
-                if (!isInAnimationSection || hasCompletedAnimation) return;
-                e.preventDefault();
-                const direction = e.deltaY > 0 ? 'down' : 'up';
-                updateFrame(direction);
-
-                // Check if animation is complete
-                if (currentFrame === frames.length - 1 && direction === 'down') {
-                    hasCompletedAnimation = true;
-                    document.body.style.overflow = '';
-                    // Restore scroll position and allow scrolling
-                    window.scrollTo(0, animationSection.offsetTop + animationSection.offsetHeight);
-                }
-            }
-
-            function checkSection() {
-                const inViewport = isElementInViewport(animationSection);
-                
-                if (inViewport && !hasCompletedAnimation) {
-                    if (!isInAnimationSection) {
-                        isInAnimationSection = true;
-                        scrollPosition = window.pageYOffset;
-                        document.body.style.overflow = 'hidden';
-                    }
-                } else {
-                    if (isInAnimationSection) {
-                        isInAnimationSection = false;
-                        document.body.style.overflow = '';
-                        // Reset animation if user scrolls back up
-                        if (window.pageYOffset < scrollPosition) {
-                            currentFrame = 0;
-                            hasCompletedAnimation = false;
-                            const img = document.getElementById('current-image');
-                            if (img) {
-                                img.src = frames[0];
-                            }
-                        }
-                    }
-                }
-            }
-
-            // Add event listeners
-            window.addEventListener('wheel', handleScroll, { passive: false });
-            window.addEventListener('scroll', checkSection);
-            window.addEventListener('resize', checkSection);
-
-            // Initial check
-            checkSection();
-        });
-
-        // ===== FIX XBOX ANIMATION SCROLL BEHAVIOR =====
-        function handleXboxAnimation() {
-            const scrollPosition = window.scrollY;
-            const windowHeight = window.innerHeight;
-            const xboxSection = document.querySelector('.animation-section');
-            const xboxImage = document.querySelector('#animation-frame img');
-            
-            if (xboxSection && xboxImage) {
-                const sectionTop = xboxSection.offsetTop;
-                const sectionHeight = xboxSection.offsetHeight;
-                const scrollRange = sectionHeight - windowHeight;
-                
-                if (scrollPosition >= sectionTop && scrollPosition <= sectionTop + sectionHeight) {
-                    const scrollProgress = (scrollPosition - sectionTop) / scrollRange;
-                    const frameIndex = Math.min(Math.floor(scrollProgress * 91), 90);
-                    xboxImage.src = `XBOX-Frames/XBOX.5.${frameIndex + 1}.jpg`;
-                }
-            }
-        }
-
-        window.addEventListener('scroll', handleXboxAnimation);
-    </script>
-
-    <!-- 
-    ===== CUSTOMIZATION GUIDE =====
-    
-    TO CUSTOMIZE THIS TEMPLATE:
-    
-    1. HERO SECTION:
-       - Replace "Your Animated Logo Goes Here" with your actual animated logo component
-    
-    2. IMAGES:
-       - Find all instances of src="your-image-X.jpg" 
-       - Replace with your actual image paths
-       - Remove the style="display: none;" when you add real images
-       - Remove the placeholder text paragraphs
-    
-    3. TEXT CONTENT:
-       - Replace all placeholder text with your actual project descriptions
-       - Update project titles (h2, h3 elements)
-    
-    4. COLORS & FONTS:
-       - Main colors are defined in CSS variables at the top
-       - Change the hero gradient in .hero-section background
-       - Modify font-family in body CSS rule
-    
-    5. SIZING:
-       - Adjust .container max-width for overall page width
-       - Change image heights in .project-image and .fullwidth-image
-       - Modify padding values in section classes for spacing
-    
-    6. SCROLL ANIMATION:
-       - Your scroll-triggered animation goes in .animation-frames div
-       - You can add the 'scroll-animate' class to any element for fade-in effect
-    
-    7. VIDEO HOVER:
-       - Add your poster image path to the img src
-       - Add your video file path to the video source
-       - Remove the placeholder div when you have real media
-    
-    8. RESPONSIVE:
-       - The template is already mobile-responsive
-       - Adjust breakpoints in @media queries if needed
-    -->
-
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <script src="script.js"></script>
 </body>
 </html>
