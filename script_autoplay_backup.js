@@ -147,16 +147,16 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const targetId = this.getAttribute('href');
             const targetElement = document.querySelector(targetId);
-              if (targetElement) {
+            
+            if (targetElement) {
                 // Add jump effect with easing
                 window.scrollTo({
                     top: targetElement.offsetTop,
                     behavior: 'smooth'
                 });
             }
-        });
-    });
-
+        });    });
+  
     // Initialize animations
     initializeAnimations();
     
