@@ -29,10 +29,9 @@
               "notes": "Particle colors and density can be adjusted but should remain subtle and interactive"
             }
           }
-        },
-        "layout": "centered",
+        },        "layout": "centered",
         "height": "100vh",
-        "scrollBehavior": "jump-to-next-section",
+        "scrollBehavior": "natural-scroll",
         "structureNotes": "This section must remain full-screen and centered"
       },
       {

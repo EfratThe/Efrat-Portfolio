@@ -157,28 +157,5 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
-    
-    // Add auto jump effect from intro to first section on scroll
-    let hasJumped = false;
-    const scrollAnimationSection = document.getElementById('scroll-animation');
-    
-    function checkScrollForJump() {
-        // If user has scrolled a little in the intro section and hasn't jumped yet
-        if (!hasJumped && window.scrollY > 50 && window.scrollY < introSection.offsetHeight / 2) {
-            hasJumped = true;
-            // Create a smooth but quick scroll to the next section
-            window.scrollTo({
-                top: scrollAnimationSection.offsetTop,
-                behavior: 'smooth'
-            });
-        }
-        
-        // Reset jump flag when back at top
-        if (window.scrollY < 10) {
-            hasJumped = false;
-        }
-    }
-    
-    // Add event listener for the jump effect
-    window.addEventListener('scroll', checkScrollForJump);
+  
 });
