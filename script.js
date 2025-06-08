@@ -165,10 +165,9 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentFrame = 0;
     let isXboxAnimationActive = false;
     let xboxAnimationElement = null;
-    
-    // Load XBOX frames
+      // Load XBOX frames
     for (let i = 1; i <= 91; i++) {
-        xboxFrames.push(`Projects-Pictures/XBOX-Frames/XBOX.5.${i}.jpg`);
+        xboxFrames.push(`XBOX-Frames/XBOX.5.${i}.jpg`);
     }
     
     // Cup Interactive Animation
