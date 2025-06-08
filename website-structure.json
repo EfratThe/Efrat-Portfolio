@@ -1,0 +1,309 @@
+{
+  "version": "1.2.0",
+  "lastUpdated": "2025-06-08",
+  "author": "EfratThe",
+  "templateStructure": {
+    "sections": [
+      {
+        "id": "intro",
+        "type": "full-screen",
+        "name": "Introduction/Landing Page",
+        "description": "Full-screen introduction section featuring the animated logo with subtle colorful particles",
+        "content": {
+          "logo": {
+            "type": "animation",
+            "description": "Animated Levenim MT font logo that serves as the focal point of the landing page",
+            "containerStyle": "logo-container-large",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Logo animation can be updated but must remain as the central element"
+            }
+          },
+          "particles": {
+            "type": "background-animation",
+            "description": "Subtle colorful particles that follow cursor movement",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Particle colors and density can be adjusted but should remain subtle and interactive"
+            }
+          }
+        },
+        "layout": "centered",
+        "height": "100vh",
+        "scrollBehavior": "jump-to-next-section",
+        "structureNotes": "This section must remain full-screen and centered"
+      },
+      {
+        "id": "scroll-animation",
+        "type": "section",
+        "name": "Scroll Animation Section",
+        "description": "Section with right-aligned animation activated by scrolling, and left-aligned text block",
+        "content": {
+          "animation": {
+            "type": "scroll-frames",
+            "description": "Animation composed of frames that change as user scrolls",
+            "containerStyle": "animation-block",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Animation frames can be replaced but scroll mechanism must remain"
+            }
+          },
+          "text": {
+            "type": "content-block",
+            "description": "Text explaining the project",
+            "containerStyle": "text-block",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Text content can be replaced but block must remain"
+            }
+          }
+        },
+        "layout": "text-left-animation-right",
+        "structureNotes": "Animation must remain right-aligned with text on the left"
+      },
+      {
+        "id": "project-1",
+        "type": "project-section",
+        "name": "Project Display 1",
+        "description": "Project display with alternating image and text blocks, images extend to screen edges",
+        "content": {
+          "topRow": {
+            "image": {
+              "type": "image",
+              "description": "Left-aligned project image that extends to left screen edge",
+              "containerStyle": "image-block left",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            },
+            "text": {
+              "type": "content-block",
+              "description": "Right-aligned text about the project",
+              "containerStyle": "text-block",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            }
+          },
+          "bottomRow": {
+            "image": {
+              "type": "image",
+              "description": "Right-aligned project detail image that extends to right screen edge",
+              "containerStyle": "image-block right",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            },
+            "text": {
+              "type": "content-block",
+              "description": "Left-aligned text with additional project details",
+              "containerStyle": "text-block",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            }
+          }
+        },
+        "layout": "alternating",
+        "structureNotes": "Must maintain alternating layout pattern with images extending to screen edges"
+      },
+      {
+        "id": "full-width-project",
+        "type": "section",
+        "name": "Full-Width Project",
+        "description": "Screen-sized image with explanation text below, image extends to both screen edges",
+        "content": {
+          "image": {
+            "type": "full-width-image",
+            "description": "Full-width project image that extends to both screen edges",
+            "containerStyle": "full-width-image",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false
+            }
+          },
+          "text": {
+            "type": "centered-text",
+            "description": "Centered text explaining the project",
+            "containerStyle": "centered-text",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false
+            }
+          }
+        },
+        "layout": "stacked",
+        "structureNotes": "Image must remain full-width with centered text below"
+      },
+      {
+        "id": "project-2",
+        "type": "project-section",
+        "name": "Project Display 2",
+        "description": "Second project display with alternating image and text blocks, images extend to screen edges",
+        "content": {
+          "topRow": {
+            "image": {
+              "type": "image",
+              "description": "Left-aligned project image that extends to left screen edge",
+              "containerStyle": "image-block left",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            },
+            "text": {
+              "type": "content-block",
+              "description": "Right-aligned text about the project",
+              "containerStyle": "text-block",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            }
+          },
+          "bottomRow": {
+            "image": {
+              "type": "image",
+              "description": "Right-aligned project detail image that extends to right screen edge",
+              "containerStyle": "image-block right",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            },
+            "text": {
+              "type": "content-block",
+              "description": "Left-aligned text with additional project details",
+              "containerStyle": "text-block",
+              "modifiable": {
+                "canReplace": true,
+                "canRemove": false
+              }
+            }
+          }
+        },
+        "layout": "alternating",
+        "structureNotes": "Must maintain alternating layout pattern with images extending to screen edges"
+      },
+      {
+        "id": "interactive-project",
+        "type": "section",
+        "name": "Interactive Media Section",
+        "description": "Centered image that plays video on hover, this image does NOT extend to edges",
+        "content": {
+          "media": {
+            "type": "hover-media",
+            "description": "Image that plays video when hovered",
+            "containerStyle": "placeholder-block hover-block",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "notes": "Media files can be replaced but hover interaction must remain"
+            }
+          },
+          "text": {
+            "type": "centered-text",
+            "description": "Text explaining the interactive project",
+            "containerStyle": "centered-text",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false
+            }
+          }
+        },
+        "layout": "centered",
+        "structureNotes": "Media must remain centered with interaction on hover, and NOT extend to edges"
+      },
+      {
+        "id": "footer",
+        "type": "footer",
+        "name": "Footer",
+        "description": "Page footer with copyright and social links",
+        "content": {
+          "copyright": {
+            "type": "text",
+            "description": "Copyright information",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false
+            }
+          },
+          "socialLinks": {
+            "type": "links",
+            "description": "Social media links",
+            "modifiable": {
+              "canReplace": true,
+              "canRemove": false,
+              "canAdd": true,
+              "notes": "Links can be added, removed or modified"
+            }
+          }
+        },
+        "layout": "horizontal",
+        "structureNotes": "Footer must remain at the bottom of the page"
+      }
+    ]
+  },
+  "cssRules": {
+    "maintainStructure": [
+      "Keep all section IDs unchanged",
+      "Preserve the order of sections",
+      "Maintain the responsive breakpoints",
+      "Keep the core layout patterns for each section",
+      "Preserve the animation and interaction mechanisms",
+      "All image sections except the last one must extend to screen edges",
+      "The interactive media section must NOT extend to screen edges"
+    ],
+    "allowedChanges": [
+      "Content text and images",
+      "Color scheme and typography",
+      "Spacing within reasonable limits",
+      "Animation content (but not structure)",
+      "Social media links",
+      "Particle colors and density"
+    ]
+  },
+  "contentGuidelines": {
+    "fonts": {
+      "logo": "Levenim MT",
+      "body": "Quicksand"
+    },
+    "images": {
+      "formats": ["jpg", "png", "webp"],
+      "quality": "high-resolution",
+      "aspectRatios": {
+        "project-images": "3:2 recommended",
+        "full-width": "16:9 recommended",
+        "hover-media": "3:2 recommended"
+      },
+      "edgeExtension": {
+        "rule": "All images except in the interactive section must extend to screen edges based on their position",
+        "left": "Left-aligned images extend to left screen edge",
+        "right": "Right-aligned images extend to right screen edge",
+        "full": "Full-width images extend to both edges"
+      }
+    },
+    "text": {
+      "heading": "Should be concise and descriptive",
+      "paragraphs": "Should be clear and professional, focusing on project details",
+      "length": "Keep paragraphs brief for better readability"
+    },
+    "videos": {
+      "formats": ["mp4", "webm"],
+      "duration": "Keep under 10 seconds for hover interactions",
+      "autoplay": "Only on hover, should not autoplay otherwise"
+    },
+    "particles": {
+      "style": "Subtle colorful individual particles without connecting lines",
+      "interactivity": "Should follow cursor movement and respond to clicks"
+    }
+  }
+}
