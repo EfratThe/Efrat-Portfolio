@@ -155,7 +155,113 @@ document.addEventListener('DOMContentLoaded', () => {
                     behavior: 'smooth'
                 });
             }
-        });
-    });
+        });    });
   
+    // Initialize animations
+    initializeAnimations();
+    
+    // XBOX Scroll Animation
+    let xboxFrames = [];
+    let currentFrame = 0;
+    let isXboxAnimationActive = false;
+    let xboxAnimationElement = null;
+    
+    // Load XBOX frames
+    for (let i = 1; i <= 91; i++) {
+        xboxFrames.push(`Projects-Pictures/XBOX-Frames/XBOX.5.${i}.jpg`);
+    }
+    
+    // Cup Interactive Animation
+    let cupFrames = [];
+    let cupAnimationElement = null;
+    let cupAnimationInterval = null;
+    
+    // Load Cup frames
+    for (let i = 9655; i <= 9673; i++) {
+        cupFrames.push(`Projects-Pictures/Cup-Frames/_MG_${i}.JPG`);
+    }
+    
+    function initializeAnimations() {
+        xboxAnimationElement = document.getElementById('xbox-animation');
+        cupAnimationElement = document.getElementById('cup-interactive');
+        
+        // Setup XBOX scroll animation
+        if (xboxAnimationElement) {
+            setupXboxScrollAnimation();
+        }
+        
+        // Setup Cup hover animation
+        if (cupAnimationElement) {
+            setupCupHoverAnimation();
+        }
+    }
+    
+    function setupXboxScrollAnimation() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && entry.intersectionRatio >= 0.95) {
+                    // Element is fully visible, start animation and prevent scroll
+                    if (!isXboxAnimationActive) {
+                        startXboxAnimation();
+                    }
+                } else if (isXboxAnimationActive) {
+                    // Element is no longer fully visible, allow scroll
+                    stopXboxAnimation();
+                }
+            });
+        }, {
+            threshold: 0.95 // Trigger when 95% of element is visible
+        });
+        
+        observer.observe(xboxAnimationElement.parentElement);
+    }
+    
+    function startXboxAnimation() {
+        isXboxAnimationActive = true;
+        document.body.style.overflow = 'hidden'; // Prevent scrolling
+        
+        currentFrame = 0;
+        const animationInterval = setInterval(() => {
+            if (currentFrame < xboxFrames.length) {
+                xboxAnimationElement.src = xboxFrames[currentFrame];
+                currentFrame++;
+            } else {
+                // Animation complete, allow scrolling
+                clearInterval(animationInterval);
+                stopXboxAnimation();
+            }
+        }, 100); // Adjust timing as needed
+    }
+    
+    function stopXboxAnimation() {
+        isXboxAnimationActive = false;
+        document.body.style.overflow = 'auto'; // Re-enable scrolling
+    }
+    
+    function setupCupHoverAnimation() {
+        let cupFrameIndex = 0;
+        
+        cupAnimationElement.addEventListener('mouseenter', () => {
+            cupFrameIndex = 0;
+            cupAnimationInterval = setInterval(() => {
+                if (cupFrameIndex < cupFrames.length) {
+                    cupAnimationElement.src = cupFrames[cupFrameIndex];
+                    cupFrameIndex++;
+                } else {
+                    cupFrameIndex = 0; // Loop animation
+                }
+            }, 150); // Adjust timing as needed
+        });
+        
+        cupAnimationElement.addEventListener('mouseleave', () => {
+            if (cupAnimationInterval) {
+                clearInterval(cupAnimationInterval);
+                cupAnimationInterval = null;
+            }
+            // Return to original Cup.png
+            cupAnimationElement.src = 'Projects-Pictures/Cup.png';
+        });
+    }    
+    // Initialize animations
+    initializeAnimations();
 });

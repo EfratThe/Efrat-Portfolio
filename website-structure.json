@@ -37,17 +37,25 @@
       {
         "id": "scroll-animation",
         "type": "section",
-        "name": "Scroll Animation Section",
-        "description": "Section with right-aligned animation activated by scrolling, and left-aligned text block",
+        "name": "Scroll Animation Section",        "description": "Section with right-aligned XBOX animation activated by scrolling, and left-aligned text block",
         "content": {
           "animation": {
             "type": "scroll-frames",
-            "description": "Animation composed of frames that change as user scrolls",
+            "description": "XBOX project animation using 91 frames that plays on scroll when section is fully visible",
             "containerStyle": "animation-block",
+            "behavior": {
+              "trigger": "scroll-into-view",
+              "requiresFullVisibility": true,
+              "pausesScroll": true,
+              "frameCount": 91,
+              "frameRate": "100ms",
+              "frameSource": "Projects-Pictures/XBOX-Frames/",
+              "framePattern": "XBOX.5.{i}.jpg"
+            },
             "modifiable": {
               "canReplace": true,
               "canRemove": false,
-              "notes": "Animation frames can be replaced but scroll mechanism must remain"
+              "notes": "Animation frames can be replaced but scroll mechanism and pause behavior must remain"
             }
           },
           "text": {
@@ -195,17 +203,27 @@
       {
         "id": "interactive-project",
         "type": "section",
-        "name": "Interactive Media Section",
-        "description": "Centered image that plays video on hover, this image does NOT extend to edges",
+        "name": "Interactive Media Section",        "description": "Centered Cup project image that shows frame animation on hover, this image does NOT extend to edges",
         "content": {
           "media": {
-            "type": "hover-media",
-            "description": "Image that plays video when hovered",
-            "containerStyle": "placeholder-block hover-block",
+            "type": "hover-animation",
+            "description": "Cup project image that shows static Cup.png initially, then plays frame animation on hover",
+            "containerStyle": "interactive-image",
+            "behavior": {
+              "defaultImage": "Projects-Pictures/Cup.png",
+              "trigger": "hover",
+              "animationType": "frame-sequence",
+              "frameCount": 19,
+              "frameRate": "150ms",
+              "frameSource": "Projects-Pictures/Cup-Frames/",
+              "framePattern": "_MG_{9655-9673}.JPG",
+              "loops": true,
+              "returnsToDefault": true
+            },
             "modifiable": {
               "canReplace": true,
               "canRemove": false,
-              "notes": "Media files can be replaced but hover interaction must remain"
+              "notes": "Media files can be replaced but hover interaction and frame animation must remain"
             }
           },
           "text": {
