@@ -34,14 +34,13 @@
         "scrollBehavior": "natural-scroll",
         "structureNotes": "This section must remain full-screen and centered"
       },
-      {
-        "id": "scroll-animation",
+      {        "id": "scroll-animation",
         "type": "section",
-        "name": "Scroll Animation Section",        "description": "Section with right-aligned XBOX animation activated by scrolling, and left-aligned text block",
+        "name": "XBOX Controller CAD Modeling",        "description": "Section showcasing XBOX Controller CAD modeling project with scroll-triggered animation demonstrating SolidWorks and KeyShot expertise",
         "content": {
           "animation": {
             "type": "scroll-frames",
-            "description": "XBOX project animation using 91 frames that plays on scroll when section is fully visible",
+            "description": "XBOX Controller CAD modeling process animation using 91 frames showing detailed 3D modeling and rendering workflow",
             "containerStyle": "animation-block",
             "behavior": {
               "trigger": "scroll-into-view",
@@ -72,11 +71,10 @@
         "layout": "text-left-animation-right",
         "structureNotes": "Animation must remain right-aligned with text on the left"
       },
-      {
-        "id": "project-1",
+      {        "id": "project-1",
         "type": "project-section",
-        "name": "Project Display 1",
-        "description": "Project display with alternating image and text blocks, images extend to screen edges",
+        "name": "Smart Cane",
+        "description": "Arduino-based assistive mobility device with obstacle detection technology for visually impaired users",
         "content": {
           "topRow": {
             "image": {
@@ -122,11 +120,10 @@
         "layout": "alternating",
         "structureNotes": "Must maintain alternating layout pattern with images extending to screen edges"
       },
-      {
-        "id": "full-width-project",
+      {        "id": "full-width-project",
         "type": "section",
-        "name": "Full-Width Project",
-        "description": "Screen-sized image with explanation text below, image extends to both screen edges",
+        "name": "BiBike",
+        "description": "Dual-mode bicycle design that transitions between regular cycling and stationary exercise",
         "content": {
           "image": {
             "type": "full-width-image",
@@ -150,11 +147,10 @@
         "layout": "stacked",
         "structureNotes": "Image must remain full-width with centered text below"
       },
-      {
-        "id": "project-2",
+      {        "id": "project-2",
         "type": "project-section",
-        "name": "Project Display 2",
-        "description": "Second project display with alternating image and text blocks, images extend to screen edges",
+        "name": "ModuTable",
+        "description": "Modular kitchen organization system designed for elderly users to maintain order and accessibility",
         "content": {
           "topRow": {
             "image": {
@@ -200,10 +196,9 @@
         "layout": "alternating",
         "structureNotes": "Must maintain alternating layout pattern with images extending to screen edges"
       },
-      {
-        "id": "interactive-project",
+      {        "id": "interactive-project",
         "type": "section",
-        "name": "Interactive Media Section",        "description": "Centered Cup project image that shows frame animation on hover, this image does NOT extend to edges",
+        "name": "AirSip",        "description": "Atmospheric water harvester designed for water-scarce regions in Africa using condensation technology",
         "content": {
           "media": {
             "type": "hover-animation",
