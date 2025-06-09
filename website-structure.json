@@ -12,7 +12,7 @@
         "content": {
           "logo": {
             "type": "animation",
-            "description": "Animated Levenim MT font logo that serves as the focal point of the landing page",
+            "description": "Animated Urbanist font logo that serves as the focal point of the landing page",
             "containerStyle": "logo-container-large",
             "modifiable": {
               "canReplace": true,
@@ -285,7 +285,7 @@
   },
   "contentGuidelines": {
     "fonts": {
-      "logo": "Levenim MT",
+      "logo": "Urbanist",
       "body": "Quicksand"
     },
     "images": {
