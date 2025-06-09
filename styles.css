@@ -57,9 +57,11 @@ p {
 }
 
 .logo {
-    font-family: 'Levenim MT', 'Helvetica Neue', sans-serif;
+    font-family: "Urbanist", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 400;
+    font-style: normal;
     font-size: 2rem;
-    font-weight: normal;
     letter-spacing: -0.02em;
     color: black;
     display: flex;
