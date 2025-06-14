@@ -1,16 +1,55 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Particle.js Configuration for subtle colorful particles without connecting lines
+    // Enhanced Background Effects System
+    let scrollVelocity = 0;
+    let lastScrollY = 0;
+    let currentSection = 'intro';
+    
+    // Background color themes for each section
+    const sectionThemes = {
+        intro: {
+            colors: ['#FF6B6B', '#4ECDC4', '#FFE66D', '#1A535C', '#FF9F1C'],
+            bgGradient: 'linear-gradient(135deg, #fafafa 0%, #f0f2f5 100%)',
+            particleSpeed: 1
+        },
+        smartcane: {
+            colors: ['#2196F3', '#03DAC6', '#BB86FC', '#6200EE', '#00BCD4'],
+            bgGradient: 'linear-gradient(135deg, #fafafa 0%, #e3f2fd 100%)',
+            particleSpeed: 1.2
+        },
+        xbox: {
+            colors: ['#4CAF50', '#8BC34A', '#CDDC39', '#FFC107', '#FF9800'],
+            bgGradient: 'linear-gradient(135deg, #f0f0f0 0%, #e8f5e8 100%)',
+            particleSpeed: 0.8
+        },
+        bibike: {
+            colors: ['#FF5722', '#FF7043', '#FF8A65', '#FFAB40', '#FFC107'],
+            bgGradient: 'linear-gradient(135deg, #fafafa 0%, #fff3e0 100%)',
+            particleSpeed: 1.1
+        },
+        modutable: {
+            colors: ['#9C27B0', '#E91E63', '#F06292', '#BA68C8', '#CE93D8'],
+            bgGradient: 'linear-gradient(135deg, #fafafa 0%, #f3e5f5 100%)',
+            particleSpeed: 1.3
+        },
+        airsip: {
+            colors: ['#00BCD4', '#26C6DA', '#4DD0E1', '#80DEEA', '#B2EBF2'],
+            bgGradient: 'linear-gradient(135deg, #fafafa 0%, #e0f2f1 100%)',
+            particleSpeed: 0.9
+        }
+    };
+
+    // Enhanced Particle.js Configuration with dynamic responsiveness
     particlesJS('particles-js', {
         "particles": {
             "number": {
-                "value": 40, // Reduced number of particles
+                "value": 60,
                 "density": {
                     "enable": true,
-                    "value_area": 1000
+                    "value_area": 800
                 }
             },
             "color": {
-                "value": ["#FF6B6B", "#4ECDC4", "#FFE66D", "#1A535C", "#FF9F1C"]
+                "value": sectionThemes.intro.colors
             },
             "shape": {
                 "type": "circle",
@@ -20,31 +59,31 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             },
             "opacity": {
-                "value": 0.3, // Reduced opacity to make less apparent
+                "value": 0.4,
                 "random": true,
                 "anim": {
                     "enable": true,
-                    "speed": 0.5,
+                    "speed": 1,
                     "opacity_min": 0.1,
                     "sync": false
                 }
             },
             "size": {
-                "value": 3, // Reduced size
+                "value": 4,
                 "random": true,
                 "anim": {
                     "enable": true,
-                    "speed": 1,
+                    "speed": 2,
                     "size_min": 0.5,
                     "sync": false
                 }
             },
             "line_linked": {
-                "enable": false // No connecting lines
+                "enable": false
             },
             "move": {
                 "enable": true,
-                "speed": 1, // Slower movement
+                "speed": 1,
                 "direction": "none",
                 "random": true,
                 "straight": false,
@@ -72,19 +111,131 @@ document.addEventListener('DOMContentLoaded', () => {
             },
             "modes": {
                 "bubble": {
-                    "distance": 150,
-                    "size": 5,
+                    "distance": 200,
+                    "size": 8,
                     "duration": 2,
-                    "opacity": 0.6,
+                    "opacity": 0.8,
                     "speed": 3
                 },
                 "push": {
-                    "particles_nb": 3
+                    "particles_nb": 4
                 }
             }
         },
         "retina_detect": true
     });
+
+    // Function to update particle colors and behavior
+    function updateParticleTheme(theme) {
+        if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+            const pJS = window.pJSDom[0].pJS;
+            
+            // Update particle colors
+            pJS.particles.color.value = theme.colors;
+            
+            // Update particle speed based on scroll velocity and theme
+            const dynamicSpeed = theme.particleSpeed + (scrollVelocity * 0.1);
+            pJS.particles.move.speed = Math.min(dynamicSpeed, 5);
+            
+            // Update particles with new colors
+            pJS.particles.array.forEach(particle => {
+                const randomColor = theme.colors[Math.floor(Math.random() * theme.colors.length)];
+                particle.color.value = randomColor;
+                particle.color.rgb = hexToRgb(randomColor);
+            });
+            
+            // Refresh canvas
+            pJS.fn.particlesRefresh();
+        }
+    }
+
+    // Helper function to convert hex to RGB
+    function hexToRgb(hex) {
+        const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+        return result ? {
+            r: parseInt(result[1], 16),
+            g: parseInt(result[2], 16),
+            b: parseInt(result[3], 16)
+        } : null;
+    }
+
+    // Function to smoothly transition background gradient
+    function updateBackgroundGradient(gradient) {
+        document.body.style.transition = 'background 1.5s ease';
+        document.body.style.background = gradient;
+    }
+
+    // Enhanced scroll detection with section awareness
+    function detectCurrentSection() {
+        const sections = document.querySelectorAll('.section, .full-screen');
+        const scrollTop = window.scrollY;
+        const windowHeight = window.innerHeight;
+        
+        for (let section of sections) {
+            const rect = section.getBoundingClientRect();
+            const sectionTop = scrollTop + rect.top;
+            const sectionBottom = sectionTop + rect.height;
+            const viewportCenter = scrollTop + windowHeight / 2;
+            
+            if (viewportCenter >= sectionTop && viewportCenter <= sectionBottom) {
+                const sectionId = section.id || section.className;
+                let newSection = 'intro';
+                
+                if (sectionId.includes('intro')) newSection = 'intro';
+                else if (sectionId.includes('smart-cane')) newSection = 'smartcane';
+                else if (sectionId.includes('scroll-animation') || sectionId.includes('xbox')) newSection = 'xbox';
+                else if (sectionId.includes('bibike')) newSection = 'bibike';
+                else if (sectionId.includes('modutable')) newSection = 'modutable';
+                else if (sectionId.includes('airsip') || sectionId.includes('cup')) newSection = 'airsip';
+                
+                if (newSection !== currentSection) {
+                    currentSection = newSection;
+                    const theme = sectionThemes[currentSection];
+                    updateParticleTheme(theme);
+                    updateBackgroundGradient(theme.bgGradient);
+                }
+                break;
+            }
+        }
+    }
+
+    // Enhanced scroll event with velocity calculation and background effects
+    let isScrolling = false;
+    
+    function handleEnhancedScroll() {
+        const currentScrollY = window.scrollY;
+        scrollVelocity = Math.abs(currentScrollY - lastScrollY);
+        lastScrollY = currentScrollY;
+        
+        // Detect current section and update theme
+        detectCurrentSection();
+        
+        // Add scroll velocity effect to particles
+        if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+            const pJS = window.pJSDom[0].pJS;
+            const theme = sectionThemes[currentSection];
+            const velocityMultiplier = Math.min(scrollVelocity * 0.05, 2);
+            pJS.particles.move.speed = theme.particleSpeed + velocityMultiplier;
+            
+            // Add scroll direction effect
+            const scrollDirection = currentScrollY > lastScrollY ? 1 : -1;
+            pJS.particles.array.forEach(particle => {
+                particle.vx += scrollDirection * 0.1;
+            });
+        }
+        
+        // Reset scroll velocity after a delay
+        clearTimeout(isScrolling);
+        isScrolling = setTimeout(() => {
+            scrollVelocity = 0;
+            if (window.pJSDom && window.pJSDom[0] && window.pJSDom[0].pJS) {
+                const pJS = window.pJSDom[0].pJS;
+                const theme = sectionThemes[currentSection];
+                pJS.particles.move.speed = theme.particleSpeed;
+            }
+        }, 150);
+    }    // Add enhanced scroll listener
+    window.addEventListener('scroll', handleEnhancedScroll, { passive: true });
 
     // Logo Animation
     const letters = document.querySelectorAll('.letter');
@@ -139,22 +290,183 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Initialize previous scroll position
     window.prevScrollY = window.scrollY;
-    
-    // Smooth scroll for navigation links with jump effect
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
+
+    // Enhanced Scroll Reveal System
+    function initScrollReveal() {
+        // Add scroll-reveal class to text blocks and images
+        const textBlocks = document.querySelectorAll('.text-block h2, .text-block h3, .text-block p');
+        const images = document.querySelectorAll('.image-block img, .interactive-image');
+        
+        textBlocks.forEach((element, index) => {
+            element.classList.add('scroll-reveal', `delay-${(index % 4) + 1}`);
+        });
+        
+        images.forEach(element => {
+            element.classList.add('scroll-reveal');
+        });
+    }
+
+    // Enhanced scroll reveal observer
+    function createScrollObserver() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    
+                    // Add active class to parent section
+                    const section = entry.target.closest('.section');
+                    if (section) {
+                        section.classList.add('active');
+                    }
+                } else {
+                    // Remove active class when out of view
+                    const section = entry.target.closest('.section');
+                    if (section) {
+                        section.classList.remove('active');
+                    }
+                }
+            });
+        }, {
+            threshold: 0.2,
+            rootMargin: '0px 0px -10% 0px'
+        });
+
+        // Observe all scroll-reveal elements
+        document.querySelectorAll('.scroll-reveal').forEach(element => {
+            observer.observe(element);
+        });
+    }    // Add subtle parallax effect to images
+    function addParallaxEffect() {
+        const parallaxElements = document.querySelectorAll('.image-block img');
+        
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const parallaxSpeed = 0.1; // Reduced from 0.5 to 0.1
             
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-              if (targetElement) {
-                // Add jump effect with easing
-                window.scrollTo({
-                    top: targetElement.offsetTop,
-                    behavior: 'smooth'
-                });
+            parallaxElements.forEach(element => {
+                const rect = element.getBoundingClientRect();
+                const isInViewport = rect.top < window.innerHeight && rect.bottom > 0;
+                
+                if (isInViewport) {
+                    // Calculate relative position within the viewport
+                    const elementTop = rect.top;
+                    const elementHeight = rect.height;
+                    const viewportCenter = window.innerHeight / 2;
+                    const distanceFromCenter = elementTop - viewportCenter;
+                    
+                    // Limit parallax movement to prevent images from leaving containers
+                    const maxMovement = 20; // Maximum 20px movement
+                    const yPos = Math.max(-maxMovement, Math.min(maxMovement, distanceFromCenter * parallaxSpeed));
+                    
+                    element.style.transform = `translate3d(0, ${yPos}px, 0)`;
+                } else {
+                    // Reset transform when out of viewport
+                    element.style.transform = `translate3d(0, 0, 0)`;
+                }
+            });
+        }, { passive: true });
+    }
+
+    // Initialize enhanced scroll effects
+    initScrollReveal();
+    createScrollObserver();
+    addParallaxEffect();
+
+    // Custom Cursor System
+    function initCustomCursor() {
+        // Create cursor element
+        const cursor = document.createElement('div');
+        cursor.classList.add('custom-cursor');
+        document.body.appendChild(cursor);
+
+        // Mouse move handler
+        document.addEventListener('mousemove', (e) => {
+            cursor.style.left = e.clientX + 'px';
+            cursor.style.top = e.clientY + 'px';
+        });
+
+        // Hover effects
+        const hoverElements = document.querySelectorAll('a, button, .interactive-image, .letter, .logo');
+        hoverElements.forEach(element => {
+            element.addEventListener('mouseenter', () => {
+                cursor.classList.add('hover');
+            });
+            
+            element.addEventListener('mouseleave', () => {
+                cursor.classList.remove('hover');
+            });
+        });
+
+        // Section-based cursor themes
+        function updateCursorTheme() {
+            cursor.classList.remove('xbox', 'cup');
+            
+            if (currentSection === 'xbox') {
+                cursor.classList.add('xbox');
+            } else if (currentSection === 'airsip') {
+                cursor.classList.add('cup');
             }
-        });    });
+        }
+
+        // Update cursor theme when section changes
+        const originalDetectSection = detectCurrentSection;
+        detectCurrentSection = function() {
+            const previousSection = currentSection;
+            originalDetectSection();
+            if (previousSection !== currentSection) {
+                updateCursorTheme();
+            }
+        };
+    }
+
+    // Initialize custom cursor
+    initCustomCursor();
+
+    // Dynamic Scroll Progress Indicator
+    function createScrollProgress() {
+        // Create progress bar
+        const progressBar = document.createElement('div');
+        progressBar.classList.add('scroll-progress');
+        progressBar.innerHTML = '<div class="scroll-progress-fill"></div>';
+        document.body.appendChild(progressBar);
+
+        // Update progress on scroll
+        window.addEventListener('scroll', () => {
+            const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollTop = window.pageYOffset;
+            const scrollPercent = (scrollTop / docHeight) * 100;
+            
+            const fill = progressBar.querySelector('.scroll-progress-fill');
+            fill.style.width = scrollPercent + '%';
+            
+            // Change color based on current section
+            fill.className = `scroll-progress-fill ${currentSection}`;
+        }, { passive: true });
+    }
+
+    // Smooth momentum scrolling enhancement
+    function enhanceSmoothScrolling() {
+        // Add smooth scroll behavior to anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    // Smooth scroll with easing
+                    targetElement.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'center'
+                    });
+                }
+            });
+        });
+    }
+
+    // Initialize final enhancements
+    createScrollProgress();
+    enhanceSmoothScrolling();
 
     // XBOX Scroll Animation - Hijack Version
     let xboxFrames = [];
